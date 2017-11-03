@@ -13,13 +13,10 @@ class CreateSessionsForSeasonsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sessions_for_seasons', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('season_session', function (Blueprint $table) {
             $table->integer('season_id');
             $table->integer('session_id');
-            $table->integer('created_by')->nullable();
-            $table->integer('updated_by')->nullable();
-            $table->timestamps();
+            $table->primary(['season_id', 'session_id']);
         });
     }
 
@@ -30,6 +27,6 @@ class CreateSessionsForSeasonsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sessions_for_seasons');
+        Schema::dropIfExists('season_session');
     }
 }

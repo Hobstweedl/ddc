@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Season;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
-class SeasonController extends Controller
+class SeasonsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,8 @@ class SeasonController extends Controller
      */
     public function index()
     {
-        //
+        $seasons = Season::all();
+        return view('admin.seasons.index', compact('seasons'));
     }
 
     /**
@@ -35,7 +37,27 @@ class SeasonController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $season = $request->validate([
+            'Name' => 'required',
+            'StartDate' => 'required',
+            'EndDate' => 'required',
+            'SeasonType' => 'required',
+            'Viewable' => 'required',
+            'ProrateOnEnrollment' => 'required',
+            'ChargeForHolidays' => 'required',
+            'ChargeRegistrationFee' => 'required'
+        ]);
+
+        $season['StartDate'] = Carbon::parse($season['StartDate']);
+        $season['EndDate'] = Carbon::parse($season['EndDate']);
+
+        Season::create($season);
+        $request->session()->flash('alert-success', 'Inserted successfully!');
+        
+        $seasons = Season::all();
+        return view('admin.seasons.index', compact('seasons'));
+
     }
 
     /**
@@ -46,7 +68,7 @@ class SeasonController extends Controller
      */
     public function show(Season $season)
     {
-        //
+        return view('admin.seasons.show', compact('season'));
     }
 
     /**

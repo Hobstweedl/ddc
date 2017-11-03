@@ -14,7 +14,9 @@ class ClassesController extends Controller
      */
     public function index()
     {
-        //
+        $seasons = Season::all();
+        $classes = Classes::all();
+        return view('classes.index', compact('classes'));
     }
 
     /**
@@ -24,7 +26,7 @@ class ClassesController extends Controller
      */
     public function create()
     {
-        //
+        return view('classes.create');
     }
 
     /**
@@ -44,9 +46,9 @@ class ClassesController extends Controller
      * @param  \App\Classes  $classes
      * @return \Illuminate\Http\Response
      */
-    public function show(Classes $classes)
+    public function show(Classes $class)
     {
-        //
+        return view('classes.show', compact('class'));
     }
 
     /**
@@ -55,7 +57,7 @@ class ClassesController extends Controller
      * @param  \App\Classes  $classes
      * @return \Illuminate\Http\Response
      */
-    public function edit(Classes $classes)
+    public function edit(Classes $class)
     {
         //
     }
@@ -67,7 +69,7 @@ class ClassesController extends Controller
      * @param  \App\Classes  $classes
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Classes $classes)
+    public function update(Request $request, Classes $class)
     {
         //
     }

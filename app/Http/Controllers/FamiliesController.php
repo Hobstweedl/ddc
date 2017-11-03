@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Family;
 use Illuminate\Http\Request;
 
-class FamilyController extends Controller
+class FamiliesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,8 @@ class FamilyController extends Controller
      */
     public function index()
     {
-        //
+        $families = Family::all();
+        return view('families.index', compact('families'));
     }
 
     /**
