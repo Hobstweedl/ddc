@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Session;
+use App\Location;
 use Illuminate\Http\Request;
 
-class SessionController extends Controller
+class LocationsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class SessionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Session  $session
+     * @param  \App\Location  $location
      * @return \Illuminate\Http\Response
      */
-    public function show(Session $session)
+    public function show(Location $location)
     {
         //
     }
@@ -52,10 +52,10 @@ class SessionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Session  $session
+     * @param  \App\Location  $location
      * @return \Illuminate\Http\Response
      */
-    public function edit(Session $session)
+    public function edit(Location $location)
     {
         //
     }
@@ -64,10 +64,10 @@ class SessionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Session  $session
+     * @param  \App\Location  $location
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Session $session)
+    public function update(Request $request, Location $location)
     {
         //
     }
@@ -75,10 +75,10 @@ class SessionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Session  $session
+     * @param  \App\Location  $location
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Session $session)
+    public function destroy(Location $location)
     {
         //
     }

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\SessionsForSeason;
+use App\AddressType;
 use Illuminate\Http\Request;
 
-class SessionsForSeasonController extends Controller
+class AddressTypesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class SessionsForSeasonController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\SessionsForSeason  $sessionsForSeason
+     * @param  \App\AddressType  $addressType
      * @return \Illuminate\Http\Response
      */
-    public function show(SessionsForSeason $sessionsForSeason)
+    public function show(AddressType $addressType)
     {
         //
     }
@@ -52,10 +52,10 @@ class SessionsForSeasonController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\SessionsForSeason  $sessionsForSeason
+     * @param  \App\AddressType  $addressType
      * @return \Illuminate\Http\Response
      */
-    public function edit(SessionsForSeason $sessionsForSeason)
+    public function edit(AddressType $addressType)
     {
         //
     }
@@ -64,10 +64,10 @@ class SessionsForSeasonController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\SessionsForSeason  $sessionsForSeason
+     * @param  \App\AddressType  $addressType
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SessionsForSeason $sessionsForSeason)
+    public function update(Request $request, AddressType $addressType)
     {
         //
     }
@@ -75,10 +75,10 @@ class SessionsForSeasonController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\SessionsForSeason  $sessionsForSeason
+     * @param  \App\AddressType  $addressType
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SessionsForSeason $sessionsForSeason)
+    public function destroy(AddressType $addressType)
     {
         //
     }

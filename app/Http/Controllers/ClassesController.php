@@ -14,7 +14,7 @@ class ClassesController extends Controller
      */
     public function index()
     {
-        $seasons = Season::all();
+        $seasons = \App\Season::all();
         $classes = Classes::all();
         return view('classes.index', compact('classes'));
     }

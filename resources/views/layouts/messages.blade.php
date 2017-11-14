@@ -13,4 +13,7 @@
   		<p class="subtitle is-{{ $msg }}">{{ Session::get('alert-' . $msg) }}</p>
   	</div>
   	@endif
+    <script>
+        $('.notification').delay(5000).slideUp(500);
+    </script>
 @endforeach

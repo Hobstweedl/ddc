@@ -6,4 +6,5 @@
       </p>
     </div>
   </div>
+  @yield('javascript')
 </footer>

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\PhoneType;
+use App\ClassType;
 use Illuminate\Http\Request;
 
-class PhoneTypeController extends Controller
+class ClassTypesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class PhoneTypeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\PhoneType  $phoneType
+     * @param  \App\ClassType  $classType
      * @return \Illuminate\Http\Response
      */
-    public function show(PhoneType $phoneType)
+    public function show(ClassType $classType)
     {
         //
     }
@@ -52,10 +52,10 @@ class PhoneTypeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\PhoneType  $phoneType
+     * @param  \App\ClassType  $classType
      * @return \Illuminate\Http\Response
      */
-    public function edit(PhoneType $phoneType)
+    public function edit(ClassType $classType)
     {
         //
     }
@@ -64,10 +64,10 @@ class PhoneTypeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\PhoneType  $phoneType
+     * @param  \App\ClassType  $classType
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PhoneType $phoneType)
+    public function update(Request $request, ClassType $classType)
     {
         //
     }
@@ -75,10 +75,10 @@ class PhoneTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\PhoneType  $phoneType
+     * @param  \App\ClassType  $classType
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PhoneType $phoneType)
+    public function destroy(ClassType $classType)
     {
         //
     }
