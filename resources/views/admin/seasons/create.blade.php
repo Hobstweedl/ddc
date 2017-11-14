@@ -53,7 +53,7 @@
 		      	Yes
 		    </label>
 		    <label class="radio">
-		      	<input type="radio" name="ProrateOnEnrollment" value="0">
+		      	<input type="radio" name="ProrateOnEnrollment" value="0" checked="true">
 		      	No
 		    </label>
 	 	</div>
@@ -67,7 +67,7 @@
 		      	Yes
 		    </label>
 		    <label class="radio">
-		      	<input type="radio" name="ChargeForHolidays" value="0">
+		      	<input type="radio" name="ChargeForHolidays" value="0" checked="true">
 		      	No
 		    </label>
 	 	</div>
@@ -81,7 +81,7 @@
 		      	Yes
 		    </label>
 		    <label class="radio">
-		      	<input type="radio" name="ChargeRegistrationFee" value="0">
+		      	<input type="radio" name="ChargeRegistrationFee" value="0" checked="true">
 		      	No
 		    </label>
 	 	</div>

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\AddressType;
+use App\Account;
 use Illuminate\Http\Request;
 
-class AddressTypeController extends Controller
+class AccountsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class AddressTypeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\AddressType  $addressType
+     * @param  \App\Account  $account
      * @return \Illuminate\Http\Response
      */
-    public function show(AddressType $addressType)
+    public function show(Account $account)
     {
         //
     }
@@ -52,10 +52,10 @@ class AddressTypeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\AddressType  $addressType
+     * @param  \App\Account  $account
      * @return \Illuminate\Http\Response
      */
-    public function edit(AddressType $addressType)
+    public function edit(Account $account)
     {
         //
     }
@@ -64,10 +64,10 @@ class AddressTypeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\AddressType  $addressType
+     * @param  \App\Account  $account
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, AddressType $addressType)
+    public function update(Request $request, Account $account)
     {
         //
     }
@@ -75,10 +75,10 @@ class AddressTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\AddressType  $addressType
+     * @param  \App\Account  $account
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AddressType $addressType)
+    public function destroy(Account $account)
     {
         //
     }

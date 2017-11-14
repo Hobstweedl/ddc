@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Rate;
 use Illuminate\Http\Request;
 
-class RateController extends Controller
+class RatesController extends Controller
 {
     /**
      * Display a listing of the resource.

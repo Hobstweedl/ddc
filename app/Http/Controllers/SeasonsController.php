@@ -15,7 +15,7 @@ class SeasonsController extends Controller
      */
     public function index()
     {
-        $seasons = Season::all();
+        $seasons = Season::sorted()->get()->reject->isArchived();
         return view('admin.seasons.index', compact('seasons'));
     }
 
@@ -26,7 +26,8 @@ class SeasonsController extends Controller
      */
     public function create()
     {
-        //
+        $season = new Season;
+        return view('admin.seasons.create', compact('season'));
     }
 
     /**
@@ -38,7 +39,7 @@ class SeasonsController extends Controller
     public function store(Request $request)
     {
 
-        $season = $request->validate([
+        $validated = $request->validate([
             'Name' => 'required',
             'StartDate' => 'required',
             'EndDate' => 'required',
@@ -48,11 +49,11 @@ class SeasonsController extends Controller
             'ChargeForHolidays' => 'required',
             'ChargeRegistrationFee' => 'required'
         ]);
+        $validated['StartDate'] = Carbon::parse($validated['StartDate']);
+        $validated['EndDate'] = Carbon::parse($validated['EndDate']);
 
-        $season['StartDate'] = Carbon::parse($season['StartDate']);
-        $season['EndDate'] = Carbon::parse($season['EndDate']);
+        $season = Season::create($validated);
 
-        Season::create($season);
         $request->session()->flash('alert-success', 'Inserted successfully!');
         
         $seasons = Season::all();
@@ -79,7 +80,7 @@ class SeasonsController extends Controller
      */
     public function edit(Season $season)
     {
-        //
+        return view('admin.seasons.edit', compact('season'));
     }
 
     /**
@@ -91,7 +92,30 @@ class SeasonsController extends Controller
      */
     public function update(Request $request, Season $season)
     {
-        //
+        $request->validate([
+            'Name' => 'required',
+            'StartDate' => 'required',
+            'EndDate' => 'required',
+            'SeasonType' => 'required',
+            'Viewable' => 'required',
+            'ProrateOnEnrollment' => 'required',
+            'ChargeForHolidays' => 'required',
+            'ChargeRegistrationFee' => 'required'
+        ]);
+
+        $season['Name'] = $request['Name'];
+        $season['StartDate'] = Carbon::parse($season['StartDate']);
+        $season['EndDate'] = Carbon::parse($season['EndDate']);
+        $season['SeasonType'] = $request['SeasonType'];
+        $season['Viewable'] = $request['Viewable'];
+        $season['ProrateOnEnrollment'] = $request['ProrateOnEnrollment'];
+        $season['ChargeForHolidays'] = $request['ChargeForHolidays'];
+        $season['ChargeRegistrationFee'] = $request['ChargeRegistrationFee'];
+
+        $season->save();
+        $request->session()->flash('alert-success', 'Saved successfully!');
+
+        return redirect('/seasons');
     }
 
     /**
@@ -100,8 +124,12 @@ class SeasonsController extends Controller
      * @param  \App\Season  $season
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Season $season)
+    public function destroy(Request $request, Season $season)
     {
-        //
+        $season->classes->each->archive();
+        $season->archive();
+        $season->save();
+        $request->session()->flash('alert-success', 'Archived successfully!');
+        return redirect('/seasons');
     }
 }
