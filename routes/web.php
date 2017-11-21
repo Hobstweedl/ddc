@@ -5,11 +5,12 @@ Route::get('/', 'ClassesController@index');
 
 //Family routes
 Route::get('/families', 'FamiliesController@index');
-Route::get('/families/{family}', 'FamiliesController@show');
+Route::get('/families/{family}', 'FamiliesController@edit');
 
 //Student routes
 Route::get('/students', 'StudentsController@index');
 Route::get('/students/{student}', 'StudentsController@show');
+Route::get('/families/{family}/student/create', 'StudentsController@create');
 
 //Class routes
 Route::get('/classes', 'ClassesController@index');

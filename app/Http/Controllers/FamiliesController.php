@@ -14,8 +14,9 @@ class FamiliesController extends Controller
      */
     public function index()
     {
-        $families = Family::all();
-        return view('families.index', compact('families'));
+        $families = Family::getActive();
+        $inactiveFamilies = Family::getInactive();
+        return view('families.index', compact('families', 'inactiveFamilies'));
     }
 
     /**
@@ -58,7 +59,9 @@ class FamiliesController extends Controller
      */
     public function edit(Family $family)
     {
-        //
+        $families = Family::getActive();
+        $inactiveFamilies = Family::getInactive();
+        return view('families.index', compact('family', 'families', 'inactiveFamilies'));
     }
 
     /**

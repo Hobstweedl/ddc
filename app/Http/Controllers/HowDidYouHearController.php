@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Student;
-use App\Family;
+use App\HowDidYouHear;
 use Illuminate\Http\Request;
 
-class StudentsController extends Controller
+class HowDidYouHearController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +14,7 @@ class StudentsController extends Controller
      */
     public function index()
     {
-        return view('students.index');
+        //
     }
 
     /**
@@ -23,12 +22,9 @@ class StudentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Family $family)
+    public function create()
     {
-        $families = Family::all();
-        $family_id = $family->id;
-        return view('students.create', compact('family_id', 'families'));
-
+        //
     }
 
     /**
@@ -45,10 +41,10 @@ class StudentsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Student  $student
+     * @param  \App\Location  $location
      * @return \Illuminate\Http\Response
      */
-    public function show(Student $student)
+    public function show(Location $location)
     {
         //
     }
@@ -56,10 +52,10 @@ class StudentsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Student  $student
+     * @param  \App\Location  $location
      * @return \Illuminate\Http\Response
      */
-    public function edit(Student $student)
+    public function edit(Location $location)
     {
         //
     }
@@ -68,10 +64,10 @@ class StudentsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Student  $student
+     * @param  \App\Location  $location
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Student $student)
+    public function update(Request $request, Location $location)
     {
         //
     }
@@ -79,10 +75,10 @@ class StudentsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Student  $student
+     * @param  \App\Location  $location
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Student $student)
+    public function destroy(Location $location)
     {
         //
     }
