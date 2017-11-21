@@ -24,12 +24,10 @@ class CreateFamiliesTable extends Migration
             $table->string('HowDidYouHearDetails', 100)->nullable();
             $table->string('ThirdPartyId', 100)->nullable();
             $table->integer('Active')->nullable();
-            $table->integer('paymentmethod_id');
+            $table->integer('paymentmethod_id')->nullable();
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
-
-            $table->index(["paymentmethod_id"], 'fk_family_paymentmethod1_idx');
-
+            $table->timestamps();
             $table->unique(["id"], 'id_UNIQUE');
 
         });

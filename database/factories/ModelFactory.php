@@ -38,3 +38,17 @@ $factory->define(App\Season::class, function ($faker) {
         'SeasonType' => $faker->numberBetween($min = 1, $max = 2)
     ];
 });
+
+$factory->define(App\Family::class, function ($faker) {
+    return [
+        'First' => $faker->firstName,
+        'Last' => $faker->lastName,
+        'Email' => $faker->safeEmail,
+        'Password' => $faker->password,
+        'OptOut' => $faker->optional(0.2, 0)->numberBetween($min = 0, $max = 1),
+        'HowDidYouHear' => $faker->numberBetween($min = 1, $max = 9),
+        'HowDidYouHearDetails' => $faker->sentence(6, true),
+        'ThirdPartyId' => $faker->ean8,
+        'Active' => $faker->optional(0.2, 1)->numberBetween($min = 0, $max = 1)
+    ];
+});

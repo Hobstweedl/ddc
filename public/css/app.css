@@ -1,5 +1,6 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito:300,400,600,700);body {
+body {
   font-size: 10pt;
+  font-family: 'Open Sans', sans-serif !important;
 }
 
 .weekDays-selector input {
