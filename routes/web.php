@@ -3,6 +3,9 @@
 //Home
 Route::get('/', 'ClassesController@index');
 
+//Admin tables
+Route::get('/admin/tables', 'AdminTablesController@index');
+
 //Family routes
 Route::get('/families', 'FamiliesController@index');
 Route::get('/families/{family}', 'FamiliesController@edit');

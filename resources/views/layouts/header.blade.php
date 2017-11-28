@@ -36,8 +36,8 @@
 			            Auto Tuition Rates
 			          </a>
 			          <hr class="navbar-divider">
-			          <a class="navbar-item" href="/admin/">
-			            All Admin Functions
+			          <a class="navbar-item" href="/admin/tables">
+			            Lookup Tables
 			          </a>
 			        </div>
 		    	</div>

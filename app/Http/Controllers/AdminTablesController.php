@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Student;
-use App\Family;
 use Illuminate\Http\Request;
+use \App\PhoneType;
+use \App\AddressType;
+use \App\HowDidYouHear;
+use \App\Location;
 
-class StudentsController extends Controller
+
+class AdminTablesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +18,11 @@ class StudentsController extends Controller
      */
     public function index()
     {
-        return view('students.index');
+        $phoneTypes = PhoneType::all();
+        $addressTypes = AddressType::all();
+        $howDidYouHearTypes = HowDidYouHear::all();
+        $locationTypes = Location::all();
+        return view('admin.tables', compact('phoneTypes', 'addressTypes', 'howDidYouHearTypes', 'locationTypes'));
     }
 
     /**
@@ -23,13 +30,9 @@ class StudentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Family $family)
+    public function create()
     {
-        $families = Family::all();
-        $family_id = $family->id;
-        $family_last = $family->Last;
-        return view('students.create', compact('family_id', 'family_last', 'families'));
-
+        //
     }
 
     /**
@@ -46,10 +49,10 @@ class StudentsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Student  $student
+     * @param  \App\AddressType  $addressType
      * @return \Illuminate\Http\Response
      */
-    public function show(Student $student)
+    public function show(AddressType $addressType)
     {
         //
     }
@@ -57,10 +60,10 @@ class StudentsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Student  $student
+     * @param  \App\AddressType  $addressType
      * @return \Illuminate\Http\Response
      */
-    public function edit(Student $student)
+    public function edit(AddressType $addressType)
     {
         //
     }
@@ -69,10 +72,10 @@ class StudentsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Student  $student
+     * @param  \App\AddressType  $addressType
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Student $student)
+    public function update(Request $request, AddressType $addressType)
     {
         //
     }
@@ -80,10 +83,10 @@ class StudentsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Student  $student
+     * @param  \App\AddressType  $addressType
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Student $student)
+    public function destroy(AddressType $addressType)
     {
         //
     }
