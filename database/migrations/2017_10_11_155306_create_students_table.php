@@ -25,6 +25,8 @@ class CreateStudentsTable extends Migration
             $table->integer('PaperWaiver')->nullable();
             $table->dateTime('OnlineWaiverAccepted')->nullable();
             $table->integer('Performing')->nullable();
+            $table->string('ThirdPartyId')->nullable();
+            $table->unsignedInteger('Active')->nullable();
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->unique(["id"], 'id_UNIQUE');

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Family;
+use App\HowDidYouHear;
+use App\PhoneType;
 use Illuminate\Http\Request;
+
 
 class FamiliesController extends Controller
 {
@@ -16,7 +19,9 @@ class FamiliesController extends Controller
     {
         $families = Family::getActive();
         $inactiveFamilies = Family::getInactive();
-        return view('families.index', compact('families', 'inactiveFamilies'));
+        $howDidYouHearTypes = HowDidYouHear::get();
+        $phoneTypes = PhoneType::get();
+        return view('families.index', compact('families', 'inactiveFamilies', 'howDidYouHearTypes', 'phoneTypes'));
     }
 
     /**
@@ -37,7 +42,25 @@ class FamiliesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'First' => 'required',
+            'Last' => 'required',
+            'Address1' => 'required',
+            'City' => 'required',
+            'State' => 'required',
+            'Zip' => 'required',
+            'ChargeForHolidays' => 'required',
+            'ChargeRegistrationFee' => 'required'
+        ]);
+        $validated['StartDate'] = Carbon::parse($validated['StartDate']);
+        $validated['EndDate'] = Carbon::parse($validated['EndDate']);
+
+        $season = Season::create($validated);
+
+        $request->session()->flash('alert-success', 'Inserted successfully!');
+
+        $seasons = Season::all();
+        return view('admin.seasons.index', compact('seasons'));
     }
 
     /**
@@ -61,7 +84,9 @@ class FamiliesController extends Controller
     {
         $families = Family::getActive();
         $inactiveFamilies = Family::getInactive();
-        return view('families.index', compact('family', 'families', 'inactiveFamilies'));
+        $howDidYouHearTypes = HowDidYouHear::get();
+        $phoneTypes = PhoneType::get();
+        return view('families.index', compact('family', 'families', 'inactiveFamilies', 'howDidYouHearTypes', 'phoneTypes'));
     }
 
     /**
@@ -73,7 +98,7 @@ class FamiliesController extends Controller
      */
     public function update(Request $request, Family $family)
     {
-        //
+
     }
 
     /**

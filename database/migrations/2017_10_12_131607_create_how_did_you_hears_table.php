@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAddressTypesTable extends Migration
+class CreateHowDidYouHearsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateAddressTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('address_types', function (Blueprint $table) {
+        Schema::create('how_did_you_hears', function (Blueprint $table) {
             $table->increments('id');
             $table->string('Type', 100)->nullable();
             $table->integer('created_by')->nullable();
@@ -21,12 +21,18 @@ class CreateAddressTypesTable extends Migration
             $table->timestamps();
         });
 
-        DB::table('address_types')->insert([
+        DB::table('how_did_you_hears')->insert([
             [
-                'Type' => 'Home'
+                'Type' => 'Internet Search'
             ],
             [
-                'Type' => 'Work'
+                'Type' => 'Driving By'
+            ],
+            [
+                'Type' => 'Newspaper'
+            ],
+            [
+                'Type' => 'Other'
             ]
         ]);
 
@@ -39,6 +45,6 @@ class CreateAddressTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('address_types');
+        Schema::dropIfExists('how_did_you_hears');
     }
 }

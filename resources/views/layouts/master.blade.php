@@ -11,7 +11,7 @@
 	@include('layouts.messages')
 
 	<section class="section">
-		<div class="container is-fluid">
+		<div class="container">
 			@yield('content')
 		</div>
 	</section>

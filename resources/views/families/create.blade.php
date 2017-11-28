@@ -2,14 +2,14 @@
 	@php
 		$newFamily = 0;
 	@endphp
-	<h4 class="title is-4">Editing {{$family->First . " " . $family->Last}}</h4>
+	<h5 class="title is-5"><i class="fa fa-users" aria-hidden="true"></i> {{$family->First . " " . $family->Last}}</h5>
 	<form method="POST" action="/families/{{$family->id}}">
 @else
 	@php
 		$newFamily = 1;
 		$family = new App\Family;
 	@endphp
-	<h4 class="title is-4">Add New Family</h4>
+	<h5 class="title is-5"><i class="fa fa-users" aria-hidden="true"></i> Add New Family</h5>
 	<form method="POST" action="/families">
 @endif
 
@@ -92,12 +92,12 @@
 					</div>
 					<div class="field">
 						<div class="control is-expanded">
-							<input class="input" type="text" id="Address2" name="Address2" placeholder="Address Line 2" value="{{$family->Address2}}" />
+							<input class="input" type="text" id="Address2" name="Address2" placeholder="Address Line 2" value="{{$address->Address2}}" />
 						</div>
 					</div>
 					<div class="field">
 						<div class="control is-expanded">
-							<input class="input" type="text" id="Address3" name="Address3" placeholder="Address Line 3" value="{{$family->Address3}}" />
+							<input class="input" type="text" id="Address3" name="Address3" placeholder="Address Line 3" value="{{$address->Address3}}" />
 						</div>
 					</div>
 				</div>
@@ -126,6 +126,52 @@
 			</div>
 		@endforeach
 	@endif
+
+	<div class="field is-horizontal">
+		<div class="field-label is-normal">
+			<label class="label">Phone Numbers</label>
+		</div>
+		@if ($newFamily == 1 OR count($family->phones) == 0)
+			<div class="field-body">
+				<div class="field has-addons">
+					<p class="control">
+					<span class="select">
+						<select name="PhoneType">
+							<option value="" selected>Select one</option>
+						@foreach ($phoneTypes as $phoneType)
+							<option value="{{$phoneType->id}}">{{$phoneType->Type}}</option>
+						@endforeach
+						</select>
+					</span>
+					</p>
+					<p class="control is-expanded">
+						<input class="input" type="text" id="PhoneNumber" name="PhoneNumber" placeholder="Phone" />
+					</p>
+				</div>
+			</div>
+		@else
+			@foreach ($family->phones as $phone)
+				<div class="field-body">
+					<div class="field has-addons">
+						<p class="control">
+					<span class="select">
+						<select name="PhoneType{{$phone->id}}">
+						@foreach ($phoneTypes as $phoneType)
+								<option value="{{$phoneType->id}}" @if ($phone->codePhoneType_id == $phoneType->id) selected @endif>{{$phoneType->Type}}</option>
+							@endforeach
+						</select>
+					</span>
+						</p>
+						<p class="control is-expanded">
+							<input class="input" type="text" id="PhoneNumber{{$phone->id}}" name="PhoneNumber{{$phone->id}}" placeholder="Phone" value="{{$phone->PhoneNumber}}" />
+						</p>
+					</div>
+				</div>
+			@endforeach
+		@endif
+
+
+	</div>
 
     <div class="field is-horizontal">
     	<div class="field-label is-normal">
@@ -164,7 +210,13 @@
     	</div>
     	<div class="field-body">
 	        <div class="control is-expanded">
-	            <input class="input" type="text" id="HowDidYouHear" name="HowDidYouHear" placeholder="How Did You Hear About Us?" value="{{$family->HowDidYouHear}}" required />
+				<div class="select">
+					<select name="HowDidYouHear">
+						@foreach($howDidYouHearTypes as $howDidYouHear)
+							<option value="{{$howDidYouHear->id}}" @if ($family->HowDidYouHear == $howDidYouHear->id) selected @endif> {{$howDidYouHear->Type}}</option>
+						@endforeach
+					</select>
+				</div>
 	        </div>
         </div>
     </div>

@@ -15,11 +15,26 @@ class CreateLocationsTable extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('Name', 100)->nullable();
+            $table->string('Type', 100)->nullable();
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->timestamps();
         });
+
+        DB::table('locations')->insert([
+            [
+                'Type' => 'Studio A'
+            ],
+            [
+                'Type' => 'Studio B'
+            ],
+            [
+                'Type' => 'Studio C'
+            ],
+            [
+                'Type' => 'Studio D'
+            ]
+        ]);
     }
 
     /**

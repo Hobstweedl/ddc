@@ -11,6 +11,13 @@ class FamiliesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Family::class, 100)->create();
+        $howManyFamilies = rand(50, 150);
+        $families = factory(App\Family::class, $howManyFamilies)->create();
+
+        foreach ($families as $family) {
+            $howManyStudents = rand(1, 4);
+            $family->students()->saveMany(factory(App\Student::class, $howManyStudents)->make(['Last'=>$family->Last,]));
+        }
+
     }
 }
