@@ -17,7 +17,7 @@ class CreateClassesTable extends Migration
             $table->increments('id');
             $table->string('Name', 100)->nullable();
             $table->integer('season_id');
-            $table->string('HeldOn', 100)->nullable();
+            $table->string('DayHeldOn', 100)->nullable();
             $table->dateTime('StartTime')->nullable();
             $table->integer('Length')->nullable();
             $table->integer('instructor_id');
@@ -30,8 +30,9 @@ class CreateClassesTable extends Migration
             $table->integer('AgeTo')->nullable();
             $table->integer('AgeNAFlag')->nullable();
             $table->integer('Prerequisite')->nullable();
-            $table->string('PrerequsiteNote', 100)->nullable();
+            $table->string('PrerequisiteNote', 100)->nullable();
             $table->integer('OnlineRegistrationAllowed')->nullable()->default(false);
+            $table->integer('AllowIndividualDayRegistration')->nullable();
             $table->string('Password', 100)->nullable();
             $table->decimal('ClassCharge', 10, 2)->nullable();
             $table->integer('created_by')->nullable();
