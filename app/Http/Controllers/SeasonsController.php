@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Season;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class SeasonsController extends Controller
 {
