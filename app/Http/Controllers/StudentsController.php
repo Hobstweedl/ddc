@@ -15,7 +15,9 @@ class StudentsController extends Controller
      */
     public function index()
     {
-        return view('students.index');
+        $students = Student::all();
+        $families = Family::all();
+        return view('students.index', compact('students', 'families'));
     }
 
     /**
@@ -51,7 +53,7 @@ class StudentsController extends Controller
      */
     public function show(Student $student)
     {
-        //
+
     }
 
     /**
@@ -62,8 +64,11 @@ class StudentsController extends Controller
      */
     public function edit(Student $student)
     {
-        //
+        $students = Student::all();
+        $families = Family::all();
+        return view('students.index', compact('student', 'families', 'students' ));
     }
+
 
     /**
      * Update the specified resource in storage.

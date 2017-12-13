@@ -8,12 +8,11 @@ Route::middleware(['auth'])->group(function () {
 
   //Family routes
   Route::get('/families', 'FamiliesController@index');
-
   Route::get('/families/{family}', 'FamiliesController@edit');
 
   //Student routes
   Route::get('/students', 'StudentsController@index');
-  Route::get('/students/{student}', 'StudentsController@show');
+  Route::get('/students/{student}', 'StudentsController@edit');
   Route::get('/families/{family}/student/create', 'StudentsController@create');
 
   //Class routes

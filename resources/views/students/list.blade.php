@@ -5,7 +5,7 @@
         <th>Gender</th>
     </thead>
     <tbody>
-    @foreach($family->students->sortBy('Birthday') as $student)
+    @foreach($students->sortBy('Last') as $student)
         <tr>
             <td><a href="/students/{{$student->id}}">{{$student->First . ' ' . $student->Last}}</a></td>
             <td>{{\Carbon\Carbon::now()->diffInYears(\Carbon\Carbon::parse($student->Birthday))}}</td>

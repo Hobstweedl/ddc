@@ -16,7 +16,7 @@
 				<div class="column is-half">
 					<div class="box">
 						<h5 class="title is-5"><i class="fa fa-user" aria-hidden="true"></i> Students</h5>
-						@include('students.list')
+						@include('students.list', $students = $family->students)
 						<div class="control">
 							<a class="button is-primary" href="/families/{{$family->id}}/student/create">Add Student</a>
 						</div>
