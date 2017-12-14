@@ -89,7 +89,7 @@ p.subtitle {
                   Remember me
                 </label>
               </div>
-              <a class="button is-block is-info is-large">Login</a>
+              <button type=submit class="button is-block is-info is-large">Login</button>
             </form>
           </div>
           <p class="has-text-grey">
