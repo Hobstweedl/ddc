@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Family;
 use App\HowDidYouHear;
 use App\PhoneType;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 
@@ -55,12 +56,15 @@ class FamiliesController extends Controller
         $validated['StartDate'] = Carbon::parse($validated['StartDate']);
         $validated['EndDate'] = Carbon::parse($validated['EndDate']);
 
-        $season = Season::create($validated);
+        $family = Family::create($validated);
 
         $request->session()->flash('alert-success', 'Inserted successfully!');
 
-        $seasons = Season::all();
-        return view('admin.seasons.index', compact('seasons'));
+        $families = Family::getActive();
+        $inactiveFamilies = Family::getInactive();
+        $howDidYouHearTypes = HowDidYouHear::get();
+        $phoneTypes = PhoneType::get();
+        return view('families.index', compact('families', 'inactiveFamilies', 'howDidYouHearTypes', 'phoneTypes'));
     }
 
     /**
@@ -110,5 +114,10 @@ class FamiliesController extends Controller
     public function destroy(Family $family)
     {
         //
+    }
+
+    public function __construct()
+    {
+
     }
 }

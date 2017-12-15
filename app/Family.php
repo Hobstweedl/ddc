@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Family extends Model
 {
+    protected $guarded = [];
+
     public function addresses()
     {
         return $this->morphMany('App\Address', 'addressable');

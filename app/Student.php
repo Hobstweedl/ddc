@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Student extends Model
 {
+    protected $guarded = [];
+
     public function family(){
         return $this->belongsTo(Family::class);
     }
