@@ -12,7 +12,6 @@
     <h5 class="title is-5"><i class="fa fa-user" aria-hidden="true"></i> Add New Student</h5>
     <form method="POST" action="/students">
 @endif
-    <form method="POST" action="/students">
         {{csrf_field()}}
         <div class="field is-horizontal">
             <div class="field-label is-normal">
@@ -40,7 +39,7 @@
                 <div class="field">
                     <div class="control">
                         <div class="select">
-                            <select name="Gender">
+                            <select name="Sex">
                                 <option @if ($student->gender() == 1) selected @endif value="1">Female</option>
                                 <option @if ($student->gender() == 2) selected @endif value="2">Male</option>
                             </select>
@@ -57,7 +56,7 @@
                 <div class="field">
                     <div class="control">
                         <div class="select">
-                            <select name="Family">
+                            <select name="family_id">
                                 @foreach($families as $family)
                                     <option @if ($student->family_id == $family->id) selected @endif value="{{$family->id}}">{{$family->First . ' ' . $family->Last}}</option>
                                 @endforeach
@@ -75,7 +74,7 @@
             <div class="field-body">
                 <div class="field">
                     <div class="control is-expanded">
-                        <input class="input" type="text" id="BirthDate" name="BirthDate" placeholder="Birth Date" value="{{\Carbon\Carbon::parse($student->Birthday)->format('m/d/Y')}}" required/>
+                        <input class="input" type="text" id="Birthday" name="Birthday" placeholder="Date of Birth" value="{{\Carbon\Carbon::parse($student->Birthday)->format('m/d/Y')}}" required/>
                     </div>
                 </div>
             </div>
@@ -112,7 +111,7 @@
             <div class="field-body">
                 <div class="field">
                     <div class="control is-expanded">
-                        <input class="input" type="text" disabled id="OnlineWaiverAccepted" name="OnlineWaiverAccepted" placeholder="Online Waiver Accepted" value="{{\Carbon\Carbon::parse($student->OnlineWaiverAccepted)->format('m/d/Y')}}" required/>
+                        <input class="input" type="text" id="OnlineWaiverAccepted" name="OnlineWaiverAccepted" placeholder="Online Waiver Accepted" value="{{\Carbon\Carbon::parse($student->OnlineWaiverAccepted)->format('m/d/Y')}}" required/>
                     </div>
                 </div>
             </div>
@@ -137,6 +136,20 @@
                 <div class="field">
                     <div class="control is-expanded">
                         <input class="input" type="text" id="ThirdPartyID" name="ThirdPartyID" placeholder="Third Party ID" value="{{$student->ThirdPartyID}}" required/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="field is-horizontal">
+            <div class="field-label">
+                <!-- Left empty for spacing -->
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                        <button class="button is-primary" type="submit">Save</button>
+                        @if ($newStudent != 1)<a class="button" href="/students">Cancel</a>@endif
+                        </button>
                     </div>
                 </div>
             </div>

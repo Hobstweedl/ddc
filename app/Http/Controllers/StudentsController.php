@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Student;
 use App\Family;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class StudentsController extends Controller
@@ -42,7 +43,27 @@ class StudentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'First' => 'required',
+            'Last' => 'required',
+            'Sex' => 'required',
+            'family_id' => 'required',
+            'Birthday' => 'required',
+            'MedicalConditions' => 'required',
+            'PaperWaiver' => 'required',
+            'OnlineWaiverAccepted' => 'required',
+            'Performing' => 'required',
+            'ThirdPartyID' => 'required'
+        ]);
+        $validated['Birthday'] = Carbon::parse($validated['Birthday']);
+        $validated['OnlineWaiverAccepted'] = Carbon::parse($validated['OnlineWaiverAccepted']);
+        $student = Student::create($validated);
+
+        $request->session()->flash('alert-success', 'Inserted new student successfully!');
+
+        $students = Student::all();
+        $families = Family::all();
+        return view('students.index', compact('students', 'families'));
     }
 
     /**
@@ -79,7 +100,7 @@ class StudentsController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        //
+        
     }
 
     /**
