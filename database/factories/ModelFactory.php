@@ -39,6 +39,54 @@ $factory->define(App\Season::class, function ($faker) {
     ];
 });
 
+$factory->define(App\Instructor::class, function ($faker) {
+    $first = $faker->firstName;
+    $display = $faker->title . ' ' . $first;
+    return [
+        'First' => $first,
+        'Last' => $faker->lastName,
+        'Display' => $display,
+        'Email' => $faker->safeEmail,
+        'Active' => $faker->optional(0.2, 1)->numberBetween($min = 0, $max = 1)
+    ];
+});
+
+$factory->define(App\Classes::class, function ($faker) {
+    $dayHeldOn = $faker->dayOfWeek();
+    $typeOfClass = App\ClassType::inRandomOrder()->first();
+    $typeOfClassID = $typeOfClass->id;
+    $minute = $faker->optional(0.5, '00')->randomElement($array = array('15', '30', '45'));
+    $hour = $faker->numberBetween($min = 1, $max = 12);
+    $amORpm = $faker->amPm();
+    if ($hour > 9 && $hour < 12) {$amORpm = 'am';}
+    if ($hour < 8 || $hour == 12) {$amORpm = 'pm';}
+    $timeOfClass = $hour . ':' . $minute . $amORpm;
+    $name = $dayHeldOn . ' ' . $timeOfClass . ' ' . $typeOfClass->Name;
+    $ageFrom = $faker->numberBetween($min = 3, $max = 99);
+    $ageTo = $ageFrom + 3;
+    return [
+        'Name' => $name,
+        'season_id' => App\Season::inRandomOrder()->first(),
+        'DayHeldOn' => $dayHeldOn,
+        'StartTime' => $timeOfClass,
+        'Length' => $faker->optional(0.2, '60')->randomElement($array = array('30' ,'45', '60', '90', '120')),
+        'instructor_id' => App\Instructor::inRandomOrder()->first(),
+        'classtype_id' => $typeOfClassID,
+        'PublicDescription' => $faker->sentence(4, true),
+        'PrivateNotes' => $faker->sentence(4, true),
+        'MaxSize' => $faker->optional(0.2, 10)->numberBetween($min = 3, $max = 25),
+        'location_id' => App\Location::inRandomOrder()->first(),
+        'AgeFrom' => $ageFrom,
+        'AgeTo' => $ageTo,
+        'AgeNAFlag' => $faker->optional(0.1, 1)->numberBetween($min = 0, $max = 1),
+        'Prerequisite' => $faker->optional(0.1, 0)->numberBetween($min = 0, $max = 1),
+        'OnlineRegistrationAllowed' => $faker->optional(0.1, 1)->numberBetween($min = 0, $max = 1),
+        'AllowIndividualDayRegistration' => $faker->numberBetween($min = 0, $max = 1),
+        'Password' => $faker->optional(0.1, '')->password,
+        'ClassCharge' => $faker->optional(0.1, 0)->numberBetween($min = 10, $max = 50)
+    ];
+});
+
 $factory->define(App\Family::class, function ($faker) {
     return [
         'First' => $faker->firstName,

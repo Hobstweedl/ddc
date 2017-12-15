@@ -19,6 +19,7 @@ class CreateInstructorsTable extends Migration
             $table->string('Last', 100)->nullable();
             $table->string('Display', 100)->nullable();
             $table->string('Email', 100)->nullable();
+            $table->unsignedInteger('Active')->nullable();
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->timestamps();
