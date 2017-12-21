@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Classes;
+use App\Season;
 use Illuminate\Http\Request;
 
 class ClassesController extends Controller
@@ -12,11 +13,15 @@ class ClassesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Season $season)
     {
-        $seasons = \App\Season::all();
-        $classes = Classes::all();
-        return view('classes.index', compact('classes'));
+        if (isset($season->id)) {
+            $classes = $season->classes()->get();
+        } else {
+            $classes = Classes::all();
+        }
+        $seasons = Season::all();
+        return view('classes.index', compact('classes', 'seasons'));
     }
 
     /**
