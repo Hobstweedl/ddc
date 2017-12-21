@@ -50,6 +50,10 @@ Route::post('/students', [
     'as' => 'classes.show',
     'uses' => 'ClassesController@show'
   ]);
+  Route::get('/classes/season/{season}', [
+        'as' => 'classes',
+        'uses' => 'ClassesController@index'
+    ]);
 
   //Season routes
   Route::get('/seasons', [
