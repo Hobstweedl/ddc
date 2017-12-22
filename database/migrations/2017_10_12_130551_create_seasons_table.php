@@ -23,7 +23,7 @@ class CreateSeasonsTable extends Migration
             $table->integer('ChargeForHolidays')->nullable();
             $table->integer('ChargeRegistrationFee')->nullable();
             $table->integer('Order')->nullable();
-            $table->integer('Archived')->nullable();
+            $table->integer('Archived')->default(0);
             $table->integer('SeasonType')->nullable();
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
