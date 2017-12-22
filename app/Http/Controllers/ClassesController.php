@@ -21,7 +21,7 @@ class ClassesController extends Controller
             $classes = Classes::all();
         }
         $seasons = Season::where('Archived', 0)->orderBy('Order', 'asc')->get();
-        return view('classes.index', compact('classes', 'seasons'));
+        return view('classes.index', compact('classes', 'seasons', 'season'));
     }
 
     /**

@@ -10,11 +10,15 @@
 	@include('layouts.header')
 	@include('layouts.messages')
 
-	<section class="section">
-		<div class="container">
-			@yield('content')
+	<div class="container is-fluid">
+		<div class="columns">
+			<div class="column is-2">
+				@include('layouts.sidenav')
+			</div>
+			<div class="column is-10">
+				@yield('content')
+			</div>
 		</div>
-	</section>
 
 	@include('layouts.footer')
 </body>
