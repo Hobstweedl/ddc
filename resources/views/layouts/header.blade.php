@@ -1,12 +1,48 @@
-<section class="section">
+<!--<section class="section">
 	<div class="container">
 		<h4 class="title">
 			Studio Management
 		</h4>
 	</div>
-</section>
+</section>-->
 
-<nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+<!-- START NAV -->
+<nav class="navbar is-white">
+	<div class="container">
+		<div class="navbar-brand">
+			<a class="navbar-item brand-text" href="../">
+				Studio Admin
+			</a>
+			<div class="navbar-burger burger" data-target="navMenu">
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+		</div>
+		<div id="navMenu" class="navbar-menu">
+			<div class="navbar-start">
+				<a class="navbar-item" href="/">
+					Home
+				</a>
+				<a class="navbar-item" href="/portal">
+					Portal
+				</a>
+				<a class="navbar-item" href="/users">
+					Users
+				</a>
+				<!--<a class="navbar-item" href="admin.html">
+					Exceptions
+				</a>-->
+			</div>
+
+		</div>
+	</div>
+</nav>
+<!-- END NAV -->
+
+
+
+<!--<nav class="navbar is-primary" role="navigation" aria-label="main navigation">
 	<div class="container">
 	  	<div class="navbar-brand">
 	  	</div>
@@ -53,4 +89,4 @@
 	  		</div>
 	  	</div>
 	</div>
-</nav>
+</nav>-->

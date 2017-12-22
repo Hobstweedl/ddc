@@ -16,12 +16,12 @@ class ClassesController extends Controller
     public function index(Season $season)
     {
         if (isset($season->id)) {
-            $classes = $season->classes()->get();
+            $classes = $season->classes()->orderBy('StartTime', 'asc')->get();
         } else {
             $classes = Classes::all();
         }
-        $seasons = Season::all();
-        return view('classes.index', compact('classes', 'seasons'));
+        $seasons = Season::where('Archived', 0)->orderBy('Order', 'asc')->get();
+        return view('classes.index', compact('classes', 'seasons', 'season'));
     }
 
     /**

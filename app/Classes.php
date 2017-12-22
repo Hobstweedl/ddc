@@ -10,4 +10,14 @@ class Classes extends Model
 	{
 		return $this->belongsTo(Season::class);
 	}
+
+	public function instructor()
+    {
+        return $this->belongsTo(Instructor::class);
+    }
+
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
+    }
 }

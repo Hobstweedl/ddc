@@ -1,4 +1,6 @@
-
+<div class="card">
+	<div class="card-content">
+		<div class="content">
 @foreach ($families as $family)
 <li style="list-style:none;"><a href="/families/{{ $family->id }}">
 	<span>
@@ -17,3 +19,6 @@ Inactive Families
 	</li>
 @endforeach
 @endif
+		</div>
+	</div>
+</div>
