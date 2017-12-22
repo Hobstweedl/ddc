@@ -36,6 +36,15 @@ class Season extends Model
         }
     }
 
+    public function isActive()
+    {
+        if ($this->Archived == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function canEdit()
     {
         if ($this->classes->count() > 0) {
