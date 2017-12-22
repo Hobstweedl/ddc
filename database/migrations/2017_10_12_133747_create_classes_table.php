@@ -18,7 +18,7 @@ class CreateClassesTable extends Migration
             $table->string('Name', 100)->nullable();
             $table->integer('season_id');
             $table->string('DayHeldOn', 100)->nullable();
-            $table->string('StartTime', 100)->nullable();
+            $table->time('StartTime')->nullable();
             $table->integer('Length')->nullable();
             $table->integer('instructor_id');
             $table->integer('classtype_id');

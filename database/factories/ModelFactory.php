@@ -61,6 +61,7 @@ $factory->define(App\Classes::class, function ($faker) {
     if ($hour > 9 && $hour < 12) {$amORpm = 'am';}
     if ($hour < 8 || $hour == 12) {$amORpm = 'pm';}
     $timeOfClass = $hour . ':' . $minute . $amORpm;
+    $databaseTime = \Carbon\Carbon::parse($timeOfClass);
     $name = $dayHeldOn . ' ' . $timeOfClass . ' ' . $typeOfClass->Name;
     $ageFrom = $faker->numberBetween($min = 3, $max = 99);
     $ageTo = $ageFrom + 3;
@@ -68,7 +69,7 @@ $factory->define(App\Classes::class, function ($faker) {
         'Name' => $name,
         'season_id' => App\Season::inRandomOrder()->first(),
         'DayHeldOn' => $dayHeldOn,
-        'StartTime' => $timeOfClass,
+        'StartTime' => $databaseTime,
         'Length' => $faker->optional(0.2, '60')->randomElement($array = array('30' ,'45', '60', '90', '120')),
         'instructor_id' => App\Instructor::inRandomOrder()->first(),
         'classtype_id' => $typeOfClassID,
