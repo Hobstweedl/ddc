@@ -24,11 +24,16 @@ class Classes extends Model
 
     public function friendlyTime(Classes $class)
     {
-        return (Carbon::parse($class->StartTime)->format('g:i A'));
+        return (Carbon::parse($class->StartTime)->format('g:ia'));
     }
 
     public function endTime(Classes $class)
     {
-        return (Carbon::parse($class->StartTime)->addMinutes($class->Length)->format('g:i A'));
+        return (Carbon::parse($class->StartTime)->addMinutes($class->Length)->format('g:ia'));
+    }
+
+    public function dates()
+    {
+        return $this->hasMany(ClassDate::class)->orderBy('HeldOn');
     }
 }

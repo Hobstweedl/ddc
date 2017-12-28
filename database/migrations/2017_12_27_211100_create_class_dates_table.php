@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateClassesDatesTable extends Migration
+class CreateClassDatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateClassesDatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('classes_dates', function (Blueprint $table) {
+        Schema::create('class_dates', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('class_id', 100)->nullable();
+            $table->unsignedInteger('classes_id');
             $table->dateTime('HeldOn')->nullable();
-            $table->dateTime('StartTime')->nullable();
+            $table->time('StartTime')->nullable();
             $table->integer('Length')->nullable();
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
@@ -32,6 +32,6 @@ class CreateClassesDatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('classes_dates');
+        Schema::dropIfExists('class_dates');
     }
 }

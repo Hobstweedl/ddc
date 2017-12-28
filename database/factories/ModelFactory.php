@@ -62,7 +62,8 @@ $factory->define(App\Classes::class, function ($faker) {
     if ($hour < 8 || $hour == 12) {$amORpm = 'pm';}
     $timeOfClass = $hour . ':' . $minute . $amORpm;
     $databaseTime = \Carbon\Carbon::parse($timeOfClass);
-    $name = $dayHeldOn . ' ' . $timeOfClass . ' ' . $typeOfClass->Name;
+    /* $name = $dayHeldOn . ' ' . $timeOfClass . ' ' . $typeOfClass->Name; */
+    $name = $faker->colorName . ' ' . $faker->lastName . 's ' . $typeOfClass->Name;
     $ageFrom = $faker->numberBetween($min = 3, $max = 99);
     $ageTo = $ageFrom + 3;
     return [
@@ -86,6 +87,20 @@ $factory->define(App\Classes::class, function ($faker) {
         'Password' => $faker->optional(0.1, '')->password,
         'ClassCharge' => $faker->optional(0.1, 0)->numberBetween($min = 10, $max = 50)
     ];
+});
+
+$factory->define(App\ClassDate::class, function ($faker) {
+    $minute = $faker->optional(0.5, '00')->randomElement($array = array('15', '30', '45'));
+    $hour = $faker->numberBetween($min = 1, $max = 12);
+    $amORpm = $faker->amPm();
+    if ($hour > 9 && $hour < 12) {$amORpm = 'am';}
+    if ($hour < 8 || $hour == 12) {$amORpm = 'pm';}
+    $timeOfClass = $hour . ':' . $minute . $amORpm;
+    $databaseTime = \Carbon\Carbon::parse($timeOfClass);
+    return [
+        'StartTime' => $databaseTime,
+        'Length' => $faker->optional(0.2, '60')->randomElement($array = array('30' ,'45', '60', '90', '120'))
+   ];
 });
 
 $factory->define(App\Family::class, function ($faker) {
