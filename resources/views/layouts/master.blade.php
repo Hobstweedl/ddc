@@ -12,10 +12,10 @@
 
 	<div class="container is-fluid">
 		<div class="columns">
-			<div class="column is-2">
+			<div class="column is-1">
 				@include('layouts.sidenav')
 			</div>
-			<div class="column is-10">
+			<div class="column is-11">
 				@yield('content')
 			</div>
 		</div>
