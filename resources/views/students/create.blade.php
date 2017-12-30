@@ -87,7 +87,7 @@
             <div class="field-body">
                 <div class="field">
                     <div class="control is-expanded">
-                        <input class="input" type="text" id="MedicalConditions" name="MedicalConditions" placeholder="Medical Conditions / Allergies" value="{{$student->MedicalConditions}}" required/>
+                        <input class="input" type="text" id="MedicalConditions" name="MedicalConditions" placeholder="Medical Conditions / Allergies" value="{{$student->MedicalConditions}}"/>
                     </div>
                 </div>
             </div>
@@ -99,7 +99,16 @@
             <div class="field-body">
                 <div class="field">
                     <div class="control is-expanded">
-                        <input class="input" type="text" id="PaperWaiver" name="PaperWaiver" placeholder="Paper Waiver on File?" value="{{$student->PaperWaiver}}" required/>
+                        <div class="control">
+                            <label class="radio">
+                                <input type="radio" name="PaperWaiver" value="1">
+                                Yes
+                            </label>
+                            <label class="radio">
+                                <input type="radio" name="PaperWaiver" value="0">
+                                No
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -123,7 +132,16 @@
             <div class="field-body">
                 <div class="field">
                     <div class="control is-expanded">
-                        <input class="input" type="text" id="Performing" name="Performing" placeholder="Performing" value="{{$student->Performing}}" required/>
+                        <div class="control">
+                            <label class="radio">
+                                <input type="radio" name="Performing" value="1">
+                                Yes
+                            </label>
+                            <label class="radio">
+                                <input type="radio" name="Performing" value="0">
+                                No
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -135,7 +153,7 @@
             <div class="field-body">
                 <div class="field">
                     <div class="control is-expanded">
-                        <input class="input" type="text" id="ThirdPartyID" name="ThirdPartyID" placeholder="Third Party ID" value="{{$student->ThirdPartyID}}" required/>
+                        <input class="input" type="text" id="ThirdPartyID" name="ThirdPartyID" placeholder="Third Party ID" value="{{$student->ThirdPartyID}}"/>
                     </div>
                 </div>
             </div>
@@ -148,7 +166,9 @@
                 <div class="field">
                     <div class="control">
                         <button class="button is-primary" type="submit">Save</button>
-                        @if ($newStudent != 1)<a class="button" href="/students">Cancel</a>@endif
+                        @if ($newStudent != 1)
+                            <a class="button" href="/students">Cancel</a>
+                        @endif
                         </button>
                     </div>
                 </div>
