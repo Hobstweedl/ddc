@@ -24,4 +24,14 @@ class Student extends Model
             return 'M';
         }
     }
+
+    public static function getActive()
+    {
+        return Student::where('Active', 1)->orderBy('Last', 'asc')->orderBy('First', 'asc')->get();
+    }
+
+    public static function getInactive()
+    {
+        return Student::where('Active', 0)->orderBy('Last', 'asc')->orderBy('First', 'asc')->get();
+    }
 }

@@ -16,9 +16,10 @@ class StudentsController extends Controller
      */
     public function index()
     {
-        $students = Student::all();
-        $families = Family::all();
-        return view('students.index', compact('students', 'families'));
+        $students = Student::getActive();
+        $families = Family::getActive();
+        $inactiveStudents = Student::getInactive();
+        return view('students.index', compact('students', 'families', 'inactiveStudents'));
     }
 
     /**
@@ -58,10 +59,9 @@ class StudentsController extends Controller
         $validated['Birthday'] = Carbon::parse($validated['Birthday']);
         $validated['OnlineWaiverAccepted'] = Carbon::parse($validated['OnlineWaiverAccepted']);
         $student = Student::create($validated);
-
         $request->session()->flash('alert-success', 'Inserted new student successfully!');
 
-        return redirect()->route('students');
+        return redirect()->route('students', 'inactiveStudents');
     }
 
     /**
@@ -83,9 +83,10 @@ class StudentsController extends Controller
      */
     public function edit(Student $student)
     {
-        $students = Student::all();
-        $families = Family::all();
-        return view('students.index', compact('student', 'families', 'students' ));
+        $students = Student::getActive();
+        $families = Family::getActive();
+        $inactiveStudents = Student::getInactive();
+        return view('students.index', compact('student', 'families', 'students', 'inactiveStudents'));
     }
 
 
