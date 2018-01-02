@@ -2,7 +2,7 @@
   <i class="fa fa-user" aria-hidden="true"></i>
   {{$student->First . " " . $student->Last}}
 </h5>
-<form method="POST" action="{{ route('editROUTE') }}">
+<form method="POST" action="{{ route('students.update', '$student') }}">
 
   {{csrf_field()}}
   <div class="field is-horizontal">
@@ -102,7 +102,7 @@
             type="radio"
             name="PaperWaiver"
             value="1"
-            @if ($student->PaperWavier() == 1) selected @endif>
+            @if ($student->PaperWaiver == 1) selected @endif>
             Yes
           </label>
           <label class="radio">
@@ -110,7 +110,7 @@
             type="radio"
             name="PaperWaiver"
             value="0"
-            @if ($student->PaperWavier() == 0) selected @endif>
+            @if ($student->PaperWaiver == 0) selected @endif>
             No
           </label>
         </div>
@@ -143,7 +143,7 @@
             type="radio"
             name="Performing"
             value="1"
-            @if ($student->Performing() == 1) selected @endif>
+            @if ($student->Performing == 1) selected @endif>
             Yes
           </label>
           <label class="radio">
@@ -151,7 +151,7 @@
             type="radio"
             name="Performing"
             value="0"
-            @if ($student->Performing() == 0) selected @endif>
+            @if ($student->Performing == 0) selected @endif>
             No
           </label>
         </div>

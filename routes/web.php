@@ -36,6 +36,10 @@ Route::middleware(['auth'])->group(function () {
       'as' => 'students.store',
       'uses' => 'StudentsController@store'
   ]);
+    Route::post('/students/{student}', [
+        'as' => 'students.update',
+        'uses' => 'StudentsController@update'
+    ]);
 
   //Class routes
   Route::get('/classes', [
