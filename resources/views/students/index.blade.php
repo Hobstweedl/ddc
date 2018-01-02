@@ -36,7 +36,7 @@
           {{$note->Content}}
           @endforeach
           <div class="control">
-            <a class="button is-primary" href="/students/{{$student->id}}/note/create">Add Note</a>
+            <a class="button is-primary" href="#">Add Note</a>
           </div>
         </div>
       </div>
@@ -50,7 +50,10 @@
     </div>
     @if (isset($student))
     <div class="box">
-      <h5 class="title is-5"><i class="fa fa-calendar-check-o" aria-hidden="true"></i> Enrollments</h5>
+      <h5 class="title is-5">
+        <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+        Enrollments
+      </h5>
     </div>
     @endif
   </div>
