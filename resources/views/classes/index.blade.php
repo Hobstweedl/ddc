@@ -7,26 +7,31 @@
 				<div class="tabs">
 					<ul>
 					@foreach ($seasons as $seasonTemp)
-						<li @if ($season->id == $seasonTemp->id) class="is-active" @endif><a href="/classes/season/{{$seasonTemp->id}}">{{$seasonTemp->Name}}</a></li>
+						<li @if ($season->id == $seasonTemp->id) class="is-active" @endif>
+							<a href="/classes/season/{{$seasonTemp->id}}">{{$seasonTemp->Name}}</a>
+						</li>
 					@endforeach
 					</ul>
 				</div>
 				@if ($season->SeasonType === 1)
 					<div class="columns">
-					@php
-					$daysOfWeek = array('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday')
-					@endphp
 					@foreach ($daysOfWeek as $day)
 						<div class="column">
 							<p class="menu-label">{{$day}}</p>
 						@foreach ($classes as $class)
 							@if ($class->DayHeldOn == $day)
-								<p class="is-size-6 is-paddingless is-marginless"><a href="/classes/{{$class->id}}">{{ $class->Name}}</a></p>
+								<p class="is-size-6 is-paddingless is-marginless">
+									<a href="/classes/{{$class->id}}">{{ $class->Name}}</a>
+								</p>
 								<p class="is-size-7 is-paddingless is-marginless">
-									<span style="display:inline-block;"><i class="fa fa-clock-o" aria-hidden="true"></i> {{$class->friendlyTime($class)}} to {{$class->endTime($class)}}</span> /
-									<span style="display:inline-block;"><i class="fa fa-user-circle" aria-hidden="true"></i> {{$class->instructor->Display}}</span> /
-									<span style="display:inline-block;"><i class="fa fa-map-marker" aria-hidden="true"></i> {{$class->location->Type}}</span> /
-									<span style="display:inline-block;"><i class="fa fa-user" aria-hidden="true"></i> Ages {{$class->AgeFrom}} to {{$class->AgeTo}}</span>
+									<span style="display:inline-block;">
+										<i class="fa fa-clock-o" aria-hidden="true"></i> {{$class->friendlyTime($class)}} to {{$class->endTime($class)}}</span> /
+									<span style="display:inline-block;">
+										<i class="fa fa-user-circle" aria-hidden="true"></i> {{$class->instructor->Display}}</span> /
+									<span style="display:inline-block;">
+										<i class="fa fa-map-marker" aria-hidden="true"></i> {{$class->location->Type}}</span> /
+									<span style="display:inline-block;">
+										<i class="fa fa-user" aria-hidden="true"></i> Ages {{$class->AgeFrom}} to {{$class->AgeTo}}</span>
 								</p>
 								<hr/>
 							@endif
@@ -37,8 +42,12 @@
 				@elseif ($season->SeasonType === 2)
 					<div class="tabs">
 						<ul>
-							<li id="list-li" class="is-active"><a onclick="$('#date-specific-class-list-view').show(); $('#date-specific-class-cal-view').hide(); $('#list-li').addClass('is-active'); $('#cal-li').removeClass('is-active');">List View</a></li>
-							<li id="cal-li"><a onclick="$('#date-specific-class-list-view').hide(); $('#date-specific-class-cal-view').show(); $('#cal-li').addClass('is-active'); $('#list-li').removeClass('is-active');">Calendar View</a></li>
+							<li id="list-li" class="is-active">
+								<a onclick="$('#date-specific-class-list-view').show(); $('#date-specific-class-cal-view').hide(); $('#list-li').addClass('is-active'); $('#cal-li').removeClass('is-active');">List View</a>
+							</li>
+							<li id="cal-li">
+								<a onclick="$('#date-specific-class-list-view').hide(); $('#date-specific-class-cal-view').show(); $('#cal-li').addClass('is-active'); $('#list-li').removeClass('is-active');">Calendar View</a>
+							</li>
 						</ul>
 					</div>
 					<div class="columns" id="date-specific-class-list-view">

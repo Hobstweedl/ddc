@@ -21,7 +21,8 @@ class ClassesController extends Controller
             $classes = Classes::all();
         }
         $seasons = Season::where('Archived', 0)->orderBy('Order', 'asc')->get();
-        return view('classes.index', compact('classes', 'seasons', 'season'));
+        $daysOfWeek = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+        return view('classes.index', compact('classes', 'seasons', 'season', $daysOfWeek));
     }
 
     /**
