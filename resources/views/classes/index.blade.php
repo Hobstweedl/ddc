@@ -55,6 +55,7 @@
 						$count = $classes->count();
 						$eachColumnCount = ceil(($count)/6);
 						$i = 1;
+						$trackTotal = 1;
 						@endphp
 					@foreach ($classes as $class)
 						@if ($i == 1)
@@ -74,14 +75,16 @@
 							</p>
 							<hr/>
 
-							@if ($eachColumnCount == $i)
-							</div>
+							@if ($eachColumnCount == $i || $trackTotal == $count)
+								</div>
 							@php
 								$i = 1;
+								$trackTotal = $trackTotal + 1;
 							@endphp
 							@else
 							@php
 								$i = $i+1;
+								$trackTotal = $trackTotal + 1;
 							@endphp
 							@endif
 					@endforeach
