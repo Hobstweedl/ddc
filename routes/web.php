@@ -32,10 +32,10 @@ Route::middleware(['auth'])->group(function () {
     'as' => 'students.create',
     'uses' => 'StudentsController@create'
   ]);
-Route::post('/students', [
-    'as' => 'students.store',
-    'uses' => 'StudentsController@store'
-]);
+  Route::post('/students', [
+      'as' => 'students.store',
+      'uses' => 'StudentsController@store'
+  ]);
 
   //Class routes
   Route::get('/classes', [

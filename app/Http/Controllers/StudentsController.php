@@ -47,13 +47,13 @@ class StudentsController extends Controller
             'First' => 'required',
             'Last' => 'required',
             'Sex' => 'required',
-            'family_id' => 'required',
+            'family_id' => 'required|integer',
             'Birthday' => 'required',
-            'MedicalConditions' => 'required',
-            'PaperWaiver' => 'required',
+            'MedicalConditions' => '',
+            'PaperWaiver' => 'required|boolean',
             'OnlineWaiverAccepted' => 'required',
-            'Performing' => 'required',
-            'ThirdPartyID' => 'required'
+            'Performing' => 'required|boolean',
+            'ThirdPartyID' => ''
         ]);
         $validated['Birthday'] = Carbon::parse($validated['Birthday']);
         $validated['OnlineWaiverAccepted'] = Carbon::parse($validated['OnlineWaiverAccepted']);
@@ -61,9 +61,7 @@ class StudentsController extends Controller
 
         $request->session()->flash('alert-success', 'Inserted new student successfully!');
 
-        $students = Student::all();
-        $families = Family::all();
-        return view('students.index', compact('students', 'families'));
+        return redirect()->route('students');
     }
 
     /**
