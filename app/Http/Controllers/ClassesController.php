@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Classes;
 use App\Season;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ClassesController extends Controller
@@ -13,16 +14,37 @@ class ClassesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Season $season)
+    public function index(Request $request, Season $season)
     {
         if (isset($season->id)) {
             $classes = $season->classes()->orderBy('StartTime', 'asc')->get();
         } else {
             $classes = Classes::all();
         }
+
+        /*Get dates to display on calendar based on month passed in URL*/
+        $defaultToCalendar = 0;
+        if (null !== ($request->input('month'))) {
+            $tempMonth = substr($request->input('month'), 0, 2);
+            $tempYear = substr($request->input('month'), 2, 4);
+            $monthToShow = Carbon::create($tempYear, $tempMonth, 1);
+            $defaultToCalendar = 1;
+        } else {
+            $monthToShow = Carbon::parse('today');
+        }
+
+        $start = Carbon::parse($monthToShow)->startOfMonth();
+        $end = Carbon::parse($monthToShow)->endOfMonth();
+        $dates = [];
+
+        while ($start->lte($end)) {
+            $dates[] = $start->copy();
+            $start->addDay();
+        }
+
         $seasons = Season::where('Archived', 0)->orderBy('Order', 'asc')->get();
         $daysOfWeek = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
-        return view('classes.index', compact('classes', 'seasons', 'season', $daysOfWeek));
+        return view('classes.index', compact('classes', 'seasons', 'season', 'daysOfWeek', 'monthToShow', 'dates', 'defaultToCalendar'));
     }
 
     /**

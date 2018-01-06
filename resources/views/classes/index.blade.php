@@ -42,15 +42,15 @@
 				@elseif ($season->SeasonType === 2)
 					<div class="tabs">
 						<ul>
-							<li id="list-li" class="is-active">
+							<li id="list-li" @if ($defaultToCalendar <> 1) class="is-active" @endif>
 								<a onclick="$('#date-specific-class-list-view').show(); $('#date-specific-class-cal-view').hide(); $('#list-li').addClass('is-active'); $('#cal-li').removeClass('is-active');">List View</a>
 							</li>
-							<li id="cal-li">
+							<li id="cal-li" @if ($defaultToCalendar == 1) class="is-active" @endif>
 								<a onclick="$('#date-specific-class-list-view').hide(); $('#date-specific-class-cal-view').show(); $('#cal-li').addClass('is-active'); $('#list-li').removeClass('is-active');">Calendar View</a>
 							</li>
 						</ul>
 					</div>
-					<div class="columns" id="date-specific-class-list-view">
+					<div class="columns" id="date-specific-class-list-view" @if ($defaultToCalendar == 1) style="display:none;" @endif>
 						@php
 						$count = $classes->count();
 						$eachColumnCount = ceil(($count)/6);
@@ -89,22 +89,8 @@
 							@endif
 					@endforeach
 					</div>
-					<div id="date-specific-class-cal-view" style="display:none;">
-						@php
-							$today = \Carbon\Carbon::parse('today');
-                            $start = \Carbon\Carbon::parse($today)->startOfMonth();
-                            $end = \Carbon\Carbon::parse($today)->endOfMonth();
-
-                            $dates = [];
-                            while ($start->lte($end)) {
-                                $dates[] = $start->copy();
-                                $start->addDay();
-                            }
-                            $keepTrackOfDay = 0;
-                            $fillBeginningOfMonth = 1;
-						@endphp
-						<h3 class="is-3">{{$today->format('F Y')}}</h3>
-						@include('layouts.calendar', [$dates])
+					<div id="date-specific-class-cal-view" @if ($defaultToCalendar <> 1) style="display:none;" @endif>
+						@include('layouts.calendar', [$dates, $monthToShow])
 						@foreach ($dates as $date)
 							@foreach ($classes as $class)
 								<script type="text/javascript">
@@ -113,15 +99,15 @@
                                     classContent += '<span style="display:inline-block;"><i class="fa fa-user-circle" aria-hidden="true"></i> {{$class->instructor->Display}}</span> /';
                                     classContent += '<span style="display:inline-block;"><i class="fa fa-map-marker" aria-hidden="true"></i> {{$class->location->Type}}</span> /';
                                     classContent += '<span style="display:inline-block;"><i class="fa fa-user" aria-hidden="true"></i> Ages {{$class->AgeFrom}} to {{$class->AgeTo}}</span>';
-								@foreach ($class->dates as $classdate)
-									@if (\Carbon\Carbon::parse($classdate->HeldOn)->toDateString() == \Carbon\Carbon::parse($date)->toDateString())
-                                    classContent += '<p class="is-size-7 is-paddingless is-marginless">';
-                                    classContent += '<i class="fa fa-calendar-check-o" aria-hidden="true"></i>';
-                                    classContent += '{{$classdate->friendlyTime($classdate)}} to {{$classdate->endTime($classdate)}} on {{$classdate->friendlyDate($classdate)}}';
-                                    classContent += '</p></p>';
-                                    $('#{{\Carbon\Carbon::parse($date)->toDateString()}}').html(classContent);
-									@endif
-								@endforeach
+									@foreach ($class->dates as $classdate)
+										@if (\Carbon\Carbon::parse($classdate->HeldOn)->toDateString() == \Carbon\Carbon::parse($date)->toDateString())
+										classContent += '<p class="is-size-7 is-paddingless is-marginless">';
+										classContent += '<i class="fa fa-calendar-check-o" aria-hidden="true"></i>';
+										classContent += '{{$classdate->friendlyTime($classdate)}} to {{$classdate->endTime($classdate)}} on {{$classdate->friendlyDate($classdate)}}';
+										classContent += '</p></p>';
+										$('#{{\Carbon\Carbon::parse($date)->toDateString()}}').html(classContent);
+										@endif
+									@endforeach
 								</script>
 							@endforeach
 						@endforeach
