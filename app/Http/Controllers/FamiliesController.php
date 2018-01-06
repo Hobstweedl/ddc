@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Family;
 use App\HowDidYouHear;
+use App\Student;
 use App\PhoneType;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -20,9 +21,10 @@ class FamiliesController extends Controller
     {
         $families = Family::getActive();
         $inactiveFamilies = Family::getInactive();
+        $inactiveStudents = Student::getInactive();
         $howDidYouHearTypes = HowDidYouHear::get();
         $phoneTypes = PhoneType::get();
-        return view('families.index', compact('families', 'inactiveFamilies', 'howDidYouHearTypes', 'phoneTypes'));
+        return view('families.index', compact('families', 'inactiveFamilies', 'howDidYouHearTypes', 'phoneTypes', 'inactiveStudents'));
     }
 
     /**
@@ -88,9 +90,10 @@ class FamiliesController extends Controller
     {
         $families = Family::getActive();
         $inactiveFamilies = Family::getInactive();
+        $inactiveStudents = Student::where('family_id', $family->id)->where('Active', 0)->get();
         $howDidYouHearTypes = HowDidYouHear::get();
         $phoneTypes = PhoneType::get();
-        return view('families.index', compact('family', 'families', 'inactiveFamilies', 'howDidYouHearTypes', 'phoneTypes'));
+        return view('families.index', compact('family', 'families', 'inactiveFamilies', 'inactiveStudents', 'howDidYouHearTypes', 'phoneTypes'));
     }
 
     /**
