@@ -55,7 +55,7 @@ Route::middleware(['auth'])->group(function () {
     'uses' => 'ClassesController@show'
   ]);
   Route::get('/classes/season/{season}', [
-        'as' => 'classes',
+        'as' => 'classes.season',
         'uses' => 'ClassesController@index'
     ]);
 

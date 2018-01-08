@@ -44,7 +44,18 @@ class ClassesController extends Controller
 
         $seasons = Season::where('Archived', 0)->orderBy('Order', 'asc')->get();
         $daysOfWeek = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
-        return view('classes.index', compact('classes', 'seasons', 'season', 'daysOfWeek', 'monthToShow', 'dates', 'defaultToCalendar'));
+
+        /*  It's better to explicitly set the data being passed into the view
+            If a variable that is undefined or null is passed to the compact function
+            it will basically insert a null pointer into the compacted object and break
+            everything compacted afterwards.
+        */
+        return view('classes.index', [
+            'classes' => $classes,
+            'seasons' => $seasons,
+            'season' => $season,
+            'daysOfWeek' => $daysOfWeek
+        ]);
     }
 
     /**
