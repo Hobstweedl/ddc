@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Family;
+use App\Student;
 use App\HowDidYouHear;
 use App\Student;
 use App\PhoneType;
@@ -17,14 +18,22 @@ class FamiliesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Family $family = null)
     {
         $families = Family::getActive();
         $inactiveFamilies = Family::getInactive();
         $inactiveStudents = Student::getInactive();
         $howDidYouHearTypes = HowDidYouHear::get();
         $phoneTypes = PhoneType::get();
-        return view('families.index', compact('families', 'inactiveFamilies', 'howDidYouHearTypes', 'phoneTypes', 'inactiveStudents'));
+
+        return view('families.index', [
+            'family' => $family,
+            'families' => $families,
+            'inactiveFamilies' => $inactiveFamilies,
+            'howDidYouHearTypes' => $howDidYouHearTypes,
+            'phoneTypes' => $phoneTypes,
+            'inactiveStudents' => $inactiveStudents
+        ]);
     }
 
     /**
