@@ -17,7 +17,33 @@
                         <div class="box">
                             <h5 class="title is-5"><i class="fa fa-calendar-check-o" aria-hidden="true"></i> Classes</h5>
                             @foreach($instructor->classes as $class)
-                                <p>{{$class->Name}} </p>
+                                @if ($class->season->SeasonType == 2)
+                                    <p style="display:inline-block;"><a href="/classes/{{$class->id}}">{{ $class->Name}}</a> /
+                                    <p class="is-size-7" style="display:inline-block;">
+                                        <span style="display:inline-block;">
+                                            &nbsp;<i class="fa fa-map-marker" aria-hidden="true"></i> {{$class->location->Type}}</span> /
+                                        <span style="display:inline-block;">
+                                            <i class="fa fa-user" aria-hidden="true"></i> Ages {{$class->AgeFrom}} to {{$class->AgeTo}}</span>
+                                    </p>
+                                    </p>
+                                    @foreach ($class->dates as $classdate)
+                                        <p class="is-size-7 is-paddingless is-marginless">
+                                            <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                                            {{$classdate->friendlyTime($classdate)}} to {{$classdate->endTime($classdate)}} on {{$classdate->friendlyDate($classdate)}}
+                                        </p>
+                                    @endforeach
+                                @endif
+                                @if ($class->season->SeasonType == 1)
+                                    <p><a href="/classes/{{$class->id}}">{{ $class->Name}}</a> </p>
+                                    <p class="is-size-7">
+                                        <span style="display:inline-block;">
+										<i class="fa fa-clock-o" aria-hidden="true"></i> {{$class->DayHeldOn}} {{$class->friendlyTime($class)}} to {{$class->endTime($class)}} from {{$class->season->friendlyDate($class->season->StartDate)}} to {{$class->season->friendlyDate($class->season->EndDate)}}</span> /
+                                        <span style="display:inline-block;">
+										<i class="fa fa-map-marker" aria-hidden="true"></i> {{$class->location->Type}}</span> /
+                                        <span style="display:inline-block;">
+										<i class="fa fa-user" aria-hidden="true"></i> Ages {{$class->AgeFrom}} to {{$class->AgeTo}}</span>
+                                    </p>
+                                @endif
                             @endforeach
 
                         </div>
@@ -39,14 +65,7 @@
                     </div>
                 @endif
             </div>
-            @if (isset($instructor))
-                <div class="box">
-                    <h5 class="title is-5">
-                        <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
-                        Something Else Here
-                    </h5>
-                </div>
-            @endif
+
         </div>
     </div>
 @endsection

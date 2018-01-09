@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Carbon\Carbon;
 
 class Season extends Model
 {
@@ -52,5 +52,10 @@ class Season extends Model
         } else {
             return true;
         }
+    }
+
+    public function friendlyDate($date)
+    {
+        return (Carbon::parse($date)->format('D\, M\. jS Y'));
     }
 }

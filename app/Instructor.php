@@ -18,5 +18,6 @@ class Instructor extends Model
     public function notes(){
         return $this->morphMany('App\Note', 'notable');
     }
+
 }
 
