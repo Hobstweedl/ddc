@@ -220,6 +220,21 @@ Route::middleware(['auth'])->group(function () {
     'uses' => 'RatesController@update'
   ]);
 
+  //Instructor routes
+  Route::get('/instructors', [
+      'as' => 'instructors',
+      'uses' => 'InstructorsController@index'
+  ]);
+
+    Route::get('/instructors/{instructor}', [
+        'as' => 'instructors.edit',
+        'uses' => 'InstructorsController@edit'
+    ]);
+    Route::post('/instructors/{instructor}', [
+        'as' => 'instructors.update',
+        'uses' => 'InstructorsController@update'
+    ]);
+
   //Sortable route
   //This is bad work. Shouldn't ever bind a route to a 3rd party library or package route
   Route::post('/sort', [

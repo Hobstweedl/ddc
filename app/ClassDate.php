@@ -11,7 +11,7 @@ class ClassDate extends Model
 
     public function friendlyDate(ClassDate $classdate)
     {
-        return (Carbon::parse($classdate->HeldOn)->format('D\.\, M\. jS Y'));
+        return (Carbon::parse($classdate->HeldOn)->format('D\, M\. jS Y'));
     }
 
     public function friendlyTime(ClassDate $classdate)

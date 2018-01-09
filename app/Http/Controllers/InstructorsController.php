@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Instructor;
 use Illuminate\Http\Request;
 
-class InstructorController extends Controller
+class InstructorsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,8 @@ class InstructorController extends Controller
      */
     public function index()
     {
-        //
+        $instructors = Instructor::all();
+        return view('instructors.index', compact('instructors'));
     }
 
     /**
@@ -57,7 +58,8 @@ class InstructorController extends Controller
      */
     public function edit(Instructor $instructor)
     {
-        //
+        $instructors = Instructor::all();
+        return view('instructors.index', compact('instructors', 'instructor'));
     }
 
     /**
