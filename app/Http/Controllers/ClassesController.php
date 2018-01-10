@@ -54,7 +54,8 @@ class ClassesController extends Controller
             'classes' => $classes,
             'seasons' => $seasons,
             'season' => $season,
-            'daysOfWeek' => $daysOfWeek
+            'daysOfWeek' => $daysOfWeek,
+            'monthToShow' => $monthToShow
         ]);
     }
 
