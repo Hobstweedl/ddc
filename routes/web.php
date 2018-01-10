@@ -10,13 +10,9 @@ Route::middleware(['auth'])->group(function () {
   ]);
 
   //Family routes
-  Route::get('/families', [
+  Route::get('/families/{family?}', [
     'as' => 'families',
     'uses' => 'FamiliesController@index'
-  ]);
-  Route::get('/families/{family}', [
-    'as' => 'families.edit',
-    'uses' => 'FamiliesController@edit'
   ]);
 
   //Student routes

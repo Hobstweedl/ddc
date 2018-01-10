@@ -21,6 +21,10 @@ class Family extends Model
         return $this->morphMany('App\Note', 'notable');
     }
 
+    public function name() {
+        return $this->First.' '.$this->Last;
+    }
+
     public static function getActive()
     {
     	return Family::where('Active', 1)->orderBy('Last', 'asc')->orderBy('First', 'asc')->get();

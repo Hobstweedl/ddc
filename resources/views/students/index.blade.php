@@ -18,7 +18,7 @@
           <h5 class="title is-5"><i class="fa fa-users" aria-hidden="true"></i> Family</h5>
           <p>
             <a href="{{ route('families.edit', ['family' => $student->family_id]) }}">
-              {{ $student->family->First }} {{ $student->family->Last }}
+              {{ $student->family->name }}
             </a>
           </p>
           @foreach($student->family->addresses as $address)
