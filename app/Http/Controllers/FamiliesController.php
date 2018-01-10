@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Family;
 use App\Student;
 use App\HowDidYouHear;
-use App\Student;
 use App\PhoneType;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
