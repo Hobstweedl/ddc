@@ -55,6 +55,8 @@ class ClassesController extends Controller
             'seasons' => $seasons,
             'season' => $season,
             'daysOfWeek' => $daysOfWeek,
+            'defaultToCalendar' => $defaultToCalendar,
+            'dates' => $dates,
             'monthToShow' => $monthToShow
         ]);
     }

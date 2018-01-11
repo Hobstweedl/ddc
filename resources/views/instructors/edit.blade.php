@@ -2,7 +2,7 @@
   <i class="fa fa-user-circle" aria-hidden="true"></i>
   {{$instructor->First . " " . $instructor->Last}}
 </h5>
-<form method="POST" action="{{ route('instructors.update', $instructor->id }}">
+<form method="POST" action="{{ route('instructors.update', $instructor->id) }}">
 
   {{csrf_field()}}
   <div class="field is-horizontal">
@@ -46,8 +46,7 @@
     <div class="field-body">
       <div class="field">
         <div class="control is-expanded">
-          <input class="input" type="text" name="Display" placeholder="Email" value="{{$instructor->Email}}"
-                 required/>
+          <input class="input" type="text" name="Display" placeholder="Email" value="{{$instructor->Email}}" required/>
         </div>
       </div>
     </div>
