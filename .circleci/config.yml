@@ -33,5 +33,6 @@ jobs:
             - ./vendor
           key: v1-dependencies-{{ checksum "composer.json" }}
 
+      - run: php artisan migrate:fresh --seed
       # run tests!
       - run: phpunit
