@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\User;
+use App\PrettyTest;
 use Tests\TestCase;
 use League\CLImate\CLImate;
 use Illuminate\Console\Command;
@@ -11,52 +12,56 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class ClassesRoutesTest extends TestCase {
 
-  /**
-   * A basic test example.
-   *
-   * @return void
-   */
   public function testClasses() {
 
-    $climate = new Climate;
+    $console = new \App\PrettyTest;
+    $console->testTitle('Running classes tests');
+
+    $route = '/classes';
     $user = factory(User::class)->create();
-    $response = $this->actingAs($user)->get('/classes');
+    $response = $this->actingAs($user)->get($route);
     if ($response->assertSuccessful()) {
-      $climate->green('Route: /classes route success');
+      $console->success("Route: {$route} route success");
     } else {
-      $climate->red('Route: /classes/create route failed');
+      $console->failure('Route: {$route} route failed');
     }
   }
   public function testClassesCreate() {
-    $climate = new Climate;
+    $console = new \App\PrettyTest;
+    $route = '/classes/create';
+
     $user = factory(User::class)->create();
-    $response = $this->actingAs($user)->get('/classes/create');
+    $response = $this->actingAs($user)->get($route);
     if ($response->assertSuccessful()) {
-      $climate->green('Route: /classes/create route success');
+      $console->success("Route: {$route} route success");
     } else {
-      $climate->red('Route: /classes/create route failed');
+      $console->failure('Route: {$route} route failed');
     }
   }
 
-  public function testClassesParameter() {
-    $climate = new Climate;
+  public function testClassesEdit() {
+    $console = new \App\PrettyTest;
+    $route = '/classes/1';
+
     $user = factory(User::class)->create();
-    $response = $this->actingAs($user)->get('/classes/1');
+    $response = $this->actingAs($user)->get($route);
     if ($response->assertSuccessful()) {
-      $climate->green('Route: /classes/1 route success');
+      $console->success("Route: {$route} route success");
     } else {
-      $climate->red('Route: /classes/1 route failed');
+      $console->failure('Route: {$route} route failed');
     }
   }
 
   public function testClassesSeasons() {
-    $climate = new Climate;
+    $console = new \App\PrettyTest;
+    $route = '/classes/season/1';
+
     $user = factory(User::class)->create();
-    $response = $this->actingAs($user)->get('/classes/season/1');
+    $response = $this->actingAs($user)->get($route);
     if ($response->assertSuccessful()) {
-      $climate->green('Route: /classes/season/1 route success');
+      $console->success("Route: {$route} route success");
     } else {
-      $climate->red('Route: /classes/season/1 route failed');
+      $console->failure('Route: {$route} route failed');
     }
   }
 }
