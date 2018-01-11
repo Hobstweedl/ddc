@@ -21,7 +21,7 @@ class FamiliesController extends Controller
     {
         $families = Family::getActive();
         $inactiveFamilies = Family::getInactive();
-        $inactiveStudents = Student::getInactive();
+        $inactiveStudents = Student::getInactive()->where('family_id', $family->id);
         $howDidYouHearTypes = HowDidYouHear::get();
         $phoneTypes = PhoneType::get();
 
