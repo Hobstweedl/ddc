@@ -133,3 +133,22 @@ $factory->define(App\Student::class, function($faker) {
     ];
 });
 
+$factory->define(App\Enrollment::class, function($faker) {
+  $dropped = $faker->optional(0.2, 0)->numberBetween(0, 1);
+  $droppedOn = null;
+  $enrolledOn = null;
+  if ($dropped == 0) {
+    $enrolledOn = $faker->dateTimeInInterval('now', '-1 year')->format('Y-m-d');
+  } else {
+    $droppedOn = $faker->dateTimeInInterval('now', '-1 year')->format('Y-m-d');
+    $enrolledOn = $faker->dateTimeInInterval($droppedOn, '-1 year')->format('Y-m-d');
+  }
+  return [
+    'class_id' => App\Classes::inRandomOrder()->first(),
+    'Dropped' => $dropped,
+    'EnrolledOn' => $enrolledOn,
+    'DroppedOn' => $droppedOn,
+    'Active' => $faker->optional(0.2, 1)->numberBetween($min = 0, $max = 1)
+  ];
+});
+

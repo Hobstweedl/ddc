@@ -17,6 +17,11 @@ class Classes extends Model
         return $this->belongsTo(Instructor::class);
     }
 
+    public function enrollments()
+    {
+      return $this->hasMany(Enrollment::class);
+    }
+
     public function location()
     {
         return $this->belongsTo(Location::class);
