@@ -17,7 +17,8 @@ class FamiliesTableSeeder extends Seeder
       $howManyStudents = rand(1, 4);
       $students = $family->students()->saveMany(factory(App\Student::class, $howManyStudents)->make(['Last'=>$family->Last,]));
       foreach ($students as $student) {
-
+        $howManyEnrollments = rand(1,4);
+        $student->enrollments()->saveMany(factory(App\Enrollment::class, $howManyEnrollments)->make(['student_id'=>$student->id]));
       }
     }
   }

@@ -20,7 +20,7 @@ class CreateEnrollmentsTable extends Migration
             $table->integer('Dropped')->nullable();
             $table->dateTime('EnrolledOn')->nullable();
             $table->dateTime('DroppedOn')->nullable();
-            $table->integer('Archived')->nullable();
+            $table->integer('Active')->nullable();
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->timestamps();
