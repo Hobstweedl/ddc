@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-content">
     <div class="content">
-      <h3>Active Students</h3>
+      <h5 class="title is-5">Active Students</h5>
       <ul>
         @foreach ($students->sortBy('Last') as $student)
           <li style="list-style:none;">
@@ -13,9 +13,9 @@
           </li>
         @endforeach
       </ul>
-      <hr>
+      <div class="is-divider"></div>
       @if (count($inactiveStudents) > 0)
-        <h3>Inactive Students</h3>
+        <h5 class="title is-5">Inactive Students</h5>
         <ul>
           @foreach ($inactiveStudents as $student)
             <li style="list-style:none;">
