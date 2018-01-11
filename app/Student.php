@@ -16,6 +16,10 @@ class Student extends Model
         return $this->morphMany('App\Note', 'notable');
     }
 
+    public function enrollments(){
+      return $this->hasMany(Enrollment::class);
+    }
+
     public function gender(){
         if ($this->Sex == 1) {
             return 'F';
