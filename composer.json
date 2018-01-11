@@ -10,6 +10,7 @@
         "laravel-frontend-presets/bulma": "^1.6",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
+        "league/climate": "^3.2",
         "rutorika/sortable": "^4.1"
     },
     "require-dev": {
