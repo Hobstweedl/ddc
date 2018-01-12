@@ -16,8 +16,12 @@ class SeasonsTableSeeder extends Seeder
 
         foreach ($seasons as $season) {
             $howManyClasses = rand(10, 30);
+            if ($season->SeasonType == 1) {
+              $season->classes()->saveMany(factory(App\Classes::class, $howManyClasses)->make(['season_id'=>$season->id]));
+            } elseif ($season->SeasonType == 2) {
+              $season->classes()->saveMany(factory(App\Classes::class, $howManyClasses)->make(['season_id'=>$season->id, 'DayHeldOn'=>null, 'StartTime'=>null, 'Length'=>null ]));
+            }
 
-            $season->classes()->saveMany(factory(App\Classes::class, $howManyClasses)->make(['season_id'=>$season->id]));
             if ($season->SeasonType == 2) {
                 foreach ($season->classes as $class) {
                     $howManyDates = rand(1,5);

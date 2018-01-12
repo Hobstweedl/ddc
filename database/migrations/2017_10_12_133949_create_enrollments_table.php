@@ -16,7 +16,8 @@ class CreateEnrollmentsTable extends Migration
         Schema::create('enrollments', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('student_id');
-            $table->integer('class_id');
+            $table->integer('classes_id');
+            $table->integer('class_dates_id')->nullable();
             $table->integer('Dropped')->nullable();
             $table->dateTime('EnrolledOn')->nullable();
             $table->dateTime('DroppedOn')->nullable();
