@@ -71,7 +71,7 @@ jobs:
 
       - run:
          name: Migrate Laravel Database
-         command: php artisan migrate:fresh --seed --env=testing --force
+         command: php artisan migrate:fresh --seed
 
       - run:
          name: Compile Javascript & CSS for Browser Testing
