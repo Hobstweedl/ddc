@@ -42,6 +42,10 @@ jobs:
       #   command: sudo docker-php-ext-install zip
 
       - run:
+         name: Setup Laravel testing environment variables for CircleCI test
+         command: cp .env.build .env
+
+      - run:
          name: Update composer to latest version
          command: composer self-update
 
