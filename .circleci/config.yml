@@ -22,7 +22,7 @@ jobs:
       #nodejs6 needed to run `npm run watch` later
       - run:
          name: Install PHP sqlite and nodejs 6
-         command: sudo apt-get install -y libsqlite3-dev nodejs php7.1-sqlite3
+         command: sudo apt-get install -y libsqlite3-dev nodejs php7.1-sqlite
 
 
       # Leave this for future use if php-zip is ever required
