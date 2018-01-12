@@ -84,11 +84,6 @@ jobs:
          command: npm run production
 
       - run:
-         name: Start Chrome Driver
-         command: ./vendor/laravel/dusk/bin/chromedriver-linux
-         background: true
-
-      - run:
          name: Run Laravel Server
          command: php artisan serve
          background: true
