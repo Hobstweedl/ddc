@@ -8,6 +8,9 @@ jobs:
   build:
     docker:
       - image: circleci/php:7.1-node-browsers
+      environment:
+          APP_ENV=testing
+          DB_CONNECTION=sqlite
     working_directory: ~/laravel
     steps:
       - checkout
@@ -22,7 +25,7 @@ jobs:
       #nodejs6 needed to run `npm run watch` later
       - run:
          name: Install PHP sqlite and nodejs 6
-         command: sudo apt-get install -y libsqlite3-dev nodejs
+         command: sudo apt-get install -y libsqlite3-dev nodejs php7.1-sqlite3
 
 
       # Leave this for future use if php-zip is ever required
