@@ -6,7 +6,9 @@
 
 
 //Bulmaswatch
+@import "_variables.scss";
 @import "bulma";
+@import "_overrides.scss";
 
 html, body {
   font-family: 'Open Sans', serif;
