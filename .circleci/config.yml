@@ -53,7 +53,10 @@ jobs:
           keys:
             - composer-v1-{{ checksum "composer.json" }}
             - composer-v1-
+
       - run: composer install -n --prefer-dist --ignore-platform-reqs
+      - run: php artisan key:generate
+
       - save_cache:
           key: composer-v1-{{ checksum "composer.json" }}
           paths:
