@@ -24,4 +24,9 @@ class ClassDate extends Model
         return (Carbon::parse($classdate->StartTime)->addMinutes($classdate->Length)->format('g:ia'));
     }
 
+    public function enrollments()
+    {
+        return $this->hasMany(Enrollment::class, 'class_dates_id')->orderBy('HeldOn')->orderBy('StartTime');
+    }
+
 }

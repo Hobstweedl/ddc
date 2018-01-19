@@ -46,7 +46,7 @@
     <div class="field-body">
       <div class="field">
         <div class="control is-expanded">
-          <input class="input" type="text" name="Display" placeholder="Email" value="{{$instructor->Email}}" required/>
+          <input class="input" type="text" name="Email" placeholder="Email" value="{{$instructor->Email}}" required/>
         </div>
       </div>
     </div>

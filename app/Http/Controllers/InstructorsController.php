@@ -71,7 +71,21 @@ class InstructorsController extends Controller
      */
     public function update(Request $request, Instructor $instructor)
     {
-        //
+        $validated = $request->validate([
+            'First' => 'required',
+            'Last' => 'required',
+            'Display' => 'required',
+            'Email' => 'required',
+            'Active' => ''
+        ]);
+        $instructor->First = $validated['First'];
+        $instructor->Last = $validated['Last'];
+        $instructor->Display = $validated['Display'];
+        $instructor->Email = $validated['Email'];
+        $instructor->Active = $validated['Active'];
+        $request->session()->flash('alert-success', 'Saved instructor successfully!');
+        $instructors = Instructor::all();
+        return view('instructors.index', compact('instructor', 'instructors'));
     }
 
     /**

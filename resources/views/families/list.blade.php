@@ -1,6 +1,5 @@
-<div class="card">
-	<div class="card-content">
-		<div class="content">
+
+		<div class="box">
 			@foreach ($families as $family)
 			<li style="list-style:none;">
 				<span>
@@ -21,5 +20,4 @@
 			@endforeach
 			@endif
 		</div>
-	</div>
-</div>
+

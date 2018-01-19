@@ -1,13 +1,14 @@
 @extends('layouts.master')
 
 @section('content')
-	<div class="columns">
+
+	<div class="columns is-mobile">
 		<div class="column is-narrow">
 			@include('families.list')
 		</div>
-		<div class="column is-four-fifths">
-			<div class="columns">
-				@if (isset($family))
+		<div class="column auto">
+			<div class="columns is-multiline is-mobile">
+				@if (isset($family))	
 					<div class="column is-half">
 						<div class="box">
 							@include('families.create', $family)
@@ -38,12 +39,14 @@
 						</div>
 					</div>
 				@endif
+				@if (isset($family))
+				<div class="column auto">
+					<div class="box">
+						<h5 class="title is-5"><i class="fa fa-money" aria-hidden="true"></i> Account</h5>
+					</div>
+				</div>	
+				@endif
 			</div>
-			@if (isset($family))
-			<div class="box">
-				<h5 class="title is-5"><i class="fa fa-money" aria-hidden="true"></i> Account</h5>
-			</div>
-			@endif
 		</div>
 	</div>
 @endsection

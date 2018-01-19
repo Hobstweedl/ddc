@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Instructor extends Model
 {
+
+    protected $guarded = [];
+
     public function addresses()
     {
         return $this->morphMany('instructor', 'addressable');
