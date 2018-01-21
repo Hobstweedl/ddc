@@ -2,13 +2,28 @@
 // Fonts
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,600);
 
-// Variables
 
+@import "~bulma";
+@import "~bulmaswatch/lumen/_variables";
+@import "~bulmaswatch/lumen/_overrides";
 
-//Bulmaswatch
-@import "_variables.scss";
-@import "bulma";
-@import "_overrides.scss";
+//Extensions. Uncomment out only what we're using, some of these are huge.
+//  @import "~bulma-extensions/bulma-accordion/accordion.sass"
+//  @import "~bulma-extensions/bulma-badge/badge.sass"
+//  @import "~bulma-extensions/bulma-calendar/calendar.sass"
+//  @import "~bulma-extensions/bulma-carousel/carousel.sass"
+//  @import "~bulma-extensions/bulma-checkradio/checkradio.sass"
+//  @import "~bulma-extensions/bulma-divider/divider.sass"
+//  @import "~bulma-extensions/bulma-iconpicker/iconPicker.sass"
+//  @import "~bulma-extensions/bulma-pageloader/pageloader.sass"
+//  @import "~bulma-extensions/bulma-pricingtable/pricing-table.sass"
+//  @import "~bulma-extensions/bulma-quickview/quickview.sass"
+//  @import "~bulma-extensions/bulma-slider/slider.sass"
+//  @import "~bulma-extensions/bulma-steps/steps.sass"
+//  @import "~bulma-extensions/bulma-switch/switch.sass"
+//  @import "~bulma-extensions/bulma-tagsinput/tagsinput.sass"
+//  @import "~bulma-extensions/bulma-timeline/timeline.sass"
+//  @import "~bulma-extensions/bulma-tooltip/tooltip.sass"
 
 html, body {
   font-family: 'Open Sans', serif;

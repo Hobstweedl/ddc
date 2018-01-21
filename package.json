@@ -10,11 +10,14 @@
     "devDependencies": {
         "axios": "^0.16.2",
         "bulma": "^0.6.1",
-        "bulma-extensions": "^0.5.2",
+        "bulma-extensions": "^0.5.9",
         "cross-env": "^5.0.1",
         "jquery": "^3.1.1",
         "laravel-mix": "^1.0",
         "lodash": "^4.17.4",
         "vue": "^2.1.10"
+    },
+    "dependencies": {
+        "bulmaswatch": "^0.5.2"
     }
 }
