@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Note;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class NoteController extends Controller
+class NotesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,7 +36,17 @@ class NoteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'Content' => 'required'
+        ]);
+        $validated['created_by'] = Auth::id();
+        $validated['created_at'] = date('Y-m-d H:i:s');
+        $validated['notable_type'] = $request->notable_type;
+        $validated['notable_id'] = $request->notable_id;
+        $note = Note::create($validated);
+        $request->session()->flash('alert-success', 'Inserted new note successfully!');
+
+        return redirect()->back();
     }
 
     /**

@@ -63,10 +63,11 @@
             <div class="box">
               <h5 class="title is-5"><i class="fa fa-sticky-note-o" aria-hidden="true"></i> Notes</h5>
               @foreach($instructor->notes as $note)
-                {{$note->Content}}
+                <p class="is-size-5">{{$note->Content}} <span class="tag is-primary">{{$note->createdFriendlyDateTime($note)}}</span></p>
+                <div class="is-divider"></div>
               @endforeach
               <div class="control">
-                <a class="button is-primary" href="#">Add Note</a>
+                @include("notes.create", ["notable_type"=>"App\Instructor", "notable_id"=>$instructor->id])
               </div>
             </div>
           </div>

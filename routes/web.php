@@ -234,6 +234,12 @@ Route::middleware(['auth'])->group(function () {
     'uses' => 'InstructorsController@create'
   ]);
 
+  //Note routes
+  Route::post('/notes', [
+    'as' => 'notes.store',
+    'uses' => 'NotesController@store'
+  ]); 
+
   //Sortable route
   //This is bad work. Shouldn't ever bind a route to a 3rd party library or package route
   Route::post('/sort', [
