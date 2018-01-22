@@ -30,9 +30,10 @@
                   </p>
                   @foreach ($class->dates as $classdate)
                     <p class="is-size-7 is-paddingless is-marginless">
-                      <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                        <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
                       {{$classdate->friendlyTime($classdate)}} to {{$classdate->endTime($classdate)}}
                       on {{$classdate->friendlyDate($classdate)}}
+                      <span class="tag is-light">{{$classdate->enrollments()->count()}}</span>
                     </p>
                   @endforeach
                 @endif
@@ -52,6 +53,8 @@
                     <span style="display:inline-block;">
 										  <i class="fa fa-user" aria-hidden="true"></i> Ages {{$class->AgeFrom}} to {{$class->AgeTo}}
                     </span>
+                    <span class="tag is-light">{{$class->enrollments()->count()}}</span>
+                  </span>
                   </p>
                 @endif
               @endforeach

@@ -71,7 +71,17 @@ class InstructorsController extends Controller
      */
     public function update(Request $request, Instructor $instructor)
     {
-        //
+        $validated = $request->validate([
+            'First' => 'required',
+            'Last' => 'required',
+            'Display' => 'required',
+            'Email' => 'required',
+            'Active' => ''
+        ]);
+        $instructor->update($validated);
+        $request->session()->flash('alert-success', 'Saved instructor successfully!');
+        $instructors = Instructor::all();
+        return redirect()->action('InstructorsController@edit', $instructor);
     }
 
     /**
