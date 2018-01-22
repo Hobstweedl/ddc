@@ -32,6 +32,35 @@
 	</div>
 	<div v-if="form.weeklySeason">
 		<div class="field is-horizontal">
+			<div class="field-label is-normal">
+				<label class="label">Held On</label>
+			</div>
+			<div class="field-body">
+				<div class="field">
+					<div class="control">
+						<div class="field">
+							<input class="is-checkradio" type="checkbox" name="mondayCheckBox" id="mondayCheckBox" value="Mo">
+							<label for="mondayCheckBox">Monday</label>
+							<input class="is-checkradio" type="checkbox" name="mondayCheckBox" id="tuesdayCheckBox" value="Tu">
+							<label for="tuesdayCheckBox">Tuesday</label>
+							<input class="is-checkradio" type="checkbox" name="mondayCheckBox" id="wednesdayCheckBox" value="We">
+							<label for="wednesdayCheckBox">Wednesday</label>
+							<input class="is-checkradio" type="checkbox" name="mondayCheckBox" id="thursdayCheckBox" value="Th">
+							<label for="thursdayCheckBox">Thursday</label>
+							<input class="is-checkradio" type="checkbox" name="mondayCheckBox" id="fridayCheckBox" value="Fr">
+							<label for="fridayCheckBox">Friday</label>
+							<input class="is-checkradio" type="checkbox" name="mondayCheckBox" id="saturdayCheckBox" value="Sa">
+							<label for="saturdayCheckBox">Saturday</label>
+							<input class="is-checkradio" type="checkbox" name="mondayCheckBox" id="sundayCheckBox" value="Su">
+							<label for="sundayCheckBox">Sunday</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div v-if="form.dateSpecificSeason">
+	<div class="field is-horizontal">
 		<div class="field-label is-normal">
 			<label class="label">Held On</label>
 		</div>
@@ -39,16 +68,17 @@
 			<div class="field">
 				<div class="control">
 					<div class="field">
-						<input class="is-checkradio" type="checkbox" name="mondayCheckBox">
-						<label for="mondayCheckBox">Monday</label>
+						<div class="select is-multiple">
+							<select multiple size="5" v-model="form.selectedDates">
+								
+							</select>
+              <input name="selectedDates" id="selectedDates"/>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	</div>
-	<div v-if="form.dateSpecificSeason">
-		
+		</div>
 	</div>
 
 	<div class="field is-horizontal">
@@ -66,6 +96,7 @@
 </div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.17.1/axios.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+  <script type="text/javascript" src="https://wikiki-c4319bfccd.drafts.github.io/js/datepicker.min.js"></script>
 
 	<script>
 
@@ -157,7 +188,8 @@
 			data: {
 				form: new Form({
 					Name: '',
-					season_id: '',
+          season_id: '',
+          selectedDates: '',
 					weeklySeason: 'true',
 					dateSpecificSeason: 'false'
 				})
@@ -178,7 +210,8 @@
 						this.form.dateSpecificSeason = false;
 					} else if (seasonType == 2) {
 						this.form.weeklySeason = false;
-						this.form.dateSpecificSeason = true;
+            this.form.dateSpecificSeason = true;
+            var datePicker = new DatePicker( document.getElementById( 'selectedDates' ), {} );
 					} else {
 						this.form.weeklySeason = false;
 						this.form.dateSpecificSeason = false;
@@ -187,5 +220,6 @@
 			}
 		});
 
-		classCreate.seasonSelected();
+    classCreate.seasonSelected();
+    
 	</script>

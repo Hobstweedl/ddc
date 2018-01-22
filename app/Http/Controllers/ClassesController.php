@@ -83,7 +83,7 @@ class ClassesController extends Controller
             'Name' => 'required',
             'season_id' => 'required'
         ]);
-        $class->save($validated);
+        $class = Classes::create($validated);
         $request->session()->flash('alert-success', 'Saved class successfully!');
         //$instructors = Instructor::all();
         return redirect()->action('ClassesController@index');
