@@ -53,7 +53,11 @@ Route::middleware(['auth'])->group(function () {
   Route::get('/classes/season/{season}', [
         'as' => 'classes.season',
         'uses' => 'ClassesController@index'
-    ]);
+  ]);
+  Route::post('/classes', [
+    'as' => 'classes.store',
+    'uses' => 'ClassesController@store'
+  ]);
 
   //Season routes
   Route::get('/seasons', [
@@ -230,8 +234,8 @@ Route::middleware(['auth'])->group(function () {
       'uses' => 'InstructorsController@update'
   ]);
   Route::post('/instructors', [
-    'as' => 'instructors.create',
-    'uses' => 'InstructorsController@create'
+    'as' => 'instructors.store',
+    'uses' => 'InstructorsController@store'
   ]);
 
   //Note routes

@@ -25,7 +25,7 @@ class InstructorsController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -36,7 +36,17 @@ class InstructorsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'First' => 'required',
+            'Last' => 'required',
+            'Display' => 'required',
+            'Email' => 'required',
+            'Active' => ''
+        ]);
+        $instructor->save($validated);
+        $request->session()->flash('alert-success', 'Saved instructor successfully!');
+        $instructors = Instructor::all();
+        return redirect()->action('InstructorsController@index', $instructors);
     }
 
     /**

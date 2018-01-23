@@ -79,7 +79,14 @@ class ClassesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'Name' => 'required',
+            'season_id' => 'required'
+        ]);
+        $class->save($validated);
+        $request->session()->flash('alert-success', 'Saved class successfully!');
+        //$instructors = Instructor::all();
+        return redirect()->action('ClassesController@index');
     }
 
     /**

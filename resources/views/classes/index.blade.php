@@ -4,6 +4,13 @@
 	<div class="card">
 		<div class="card-content">
 			<div class="content">
+				@include('classes.create')
+			</div>
+		</div>
+	</div>
+	<div class="card">
+		<div class="card-content">
+			<div class="content">
 				<div class="tabs">
 					<ul>
 					@foreach ($seasons as $seasonTemp)
