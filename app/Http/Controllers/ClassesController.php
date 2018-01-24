@@ -6,6 +6,8 @@ use App\Classes;
 use App\Season;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Instructor;
+use App\ClassType;
 
 class ClassesController extends Controller
 {
@@ -21,6 +23,9 @@ class ClassesController extends Controller
         } else {
             $classes = Classes::all();
         }
+
+        $instructors = Instructor::where('Active', 1)->get();
+        $classtypes = ClassType::all();
 
         /*Get dates to display on calendar based on month passed in URL*/
         $defaultToCalendar = 0;
@@ -44,6 +49,24 @@ class ClassesController extends Controller
 
         $seasons = Season::where('Archived', 0)->orderBy('Order', 'asc')->get();
         $daysOfWeek = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+        $hours = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+        $lengthHours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+        $minutes = [];
+        for ($minute = 0; $minute < 60; $minute++) {
+          if (preg_match('/^\d{2}$/', $minute)) {
+            $temp = (string)$minute;
+          } else {
+            $temp = '0' . (string)$minute;
+          }
+          $lengthMinutes[] = $minute;
+          $minutes[] = $temp;
+        }
+        $ampm = ['AM', 'PM'];
+
+        for ($x = 1; $x < 60; $x++) {
+
+        }
+
 
         /*  It's better to explicitly set the data being passed into the view
             If a variable that is undefined or null is passed to the compact function
@@ -54,10 +77,17 @@ class ClassesController extends Controller
             'classes' => $classes,
             'seasons' => $seasons,
             'season' => $season,
+            'instructors' => $instructors,
+            'classtypes' => $classtypes,
             'daysOfWeek' => $daysOfWeek,
             'defaultToCalendar' => $defaultToCalendar,
             'dates' => $dates,
-            'monthToShow' => $monthToShow
+            'monthToShow' => $monthToShow,
+            'hours' => $hours,
+            'minutes' => $minutes,
+            'ampm' => $ampm,
+            'lengthHours' => $lengthHours,
+            'lengthMinutes' => $lengthMinutes
         ]);
     }
 

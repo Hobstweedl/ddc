@@ -24,6 +24,7 @@ Vue.component('example-component', require('./components/Example.vue'));
 
 require('./bulma-extensions');
 
+
 import VCalendar from 'v-calendar';
 import 'v-calendar/lib/v-calendar.min.css';
 Vue.use(VCalendar);
