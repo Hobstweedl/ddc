@@ -1,4 +1,4 @@
-<div id="class-create">
+<div id="app">
 	<form method="POST" action="{{ route('classes.store') }}" @submit.prevent="onSubmit" @keydown="form.errors.clear($event.target.name)">
 	{{ csrf_field() }}
 	<div class="field is-horizontal">
@@ -22,9 +22,9 @@
 			<div class="select">
 				<select v-model="form.season_id" name="season_id" @change="seasonSelected">
 					<option value="">Select a season</option>
-				@foreach ($seasons as $season)
-					<option value="{{$season->id}}|{{$season->SeasonType}}">{{$season->Name}}</option>
-				@endforeach
+					@foreach ($seasons as $season)
+						<option value="{{$season->id}}|{{$season->SeasonType}}">{{$season->Name}}</option>
+					@endforeach
 				</select>
 			</div>
 			<span class="help is-danger" v-if="form.errors.has('season_id')" v-text="form.errors.get('season_id')"></span>
@@ -33,7 +33,7 @@
 	<div v-if="form.weeklySeason">
 		<div class="field is-horizontal">
 			<div class="field-label is-normal">
-				<label class="label">Held On</label>
+				<label class="label">Days of the Week</label>
 			</div>
 			<div class="field-body">
 				<div class="field">
@@ -62,19 +62,18 @@
 	<div v-if="form.dateSpecificSeason">
 	<div class="field is-horizontal">
 		<div class="field-label is-normal">
-			<label class="label">Held On</label>
+			<label class="label">Occurs On</label>
 		</div>
 		<div class="field-body">
 			<div class="field">
 				<div class="control">
-					<div class="field">
-						<div class="select is-multiple">
-							<select multiple size="5" v-model="form.selectedDates">
-								
-							</select>
-              <input name="selectedDates" id="selectedDates"/>
-						</div>
-					</div>
+					<v-date-picker :mode='form.mode' 
+						v-model='form.selectedDate' 
+						popover-visibility="focus" 
+						input-class="input" 
+						popover-expanded="true" 
+						popover-keep-visible-on-input="true">
+					</v-date-picker>
 				</div>
 			</div>
 		</div>
@@ -94,9 +93,6 @@
     </div>
   </div>
 </div>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.17.1/axios.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
-  <script type="text/javascript" src="https://wikiki-c4319bfccd.drafts.github.io/js/datepicker.min.js"></script>
 
 	<script>
 
@@ -183,18 +179,18 @@
 		}
 
 		var classCreate = new Vue({
-			el: '#class-create',
+			el: '#app',
 
 			data: {
 				form: new Form({
 					Name: '',
           season_id: '',
-          selectedDates: '',
+					selectedDate: null,
+					mode: 'multiple',
 					weeklySeason: 'true',
 					dateSpecificSeason: 'false'
-				})
+				}),
 			},
-
 			methods: {
 				onSubmit() {
 					this.form.submit('post', '/classes')
@@ -211,7 +207,6 @@
 					} else if (seasonType == 2) {
 						this.form.weeklySeason = false;
             this.form.dateSpecificSeason = true;
-            var datePicker = new DatePicker( document.getElementById( 'selectedDates' ), {} );
 					} else {
 						this.form.weeklySeason = false;
 						this.form.dateSpecificSeason = false;
@@ -221,5 +216,5 @@
 		});
 
     classCreate.seasonSelected();
-    
+
 	</script>
