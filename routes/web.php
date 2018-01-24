@@ -44,7 +44,7 @@ Route::middleware(['auth'])->group(function () {
   ]);
   Route::get('/classes/create', [
     'as' => 'classes.create',
-    'uses' => 'ClassesController@create'
+    'uses' => 'ClassesController@index'
   ]);
   Route::get('/classes/{class}', [
     'as' => 'classes.show',

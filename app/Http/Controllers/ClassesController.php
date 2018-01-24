@@ -101,7 +101,10 @@ class ClassesController extends Controller
      */
     public function create()
     {
-        return view('classes.create');
+      //$seasons = Season::where('Archived', 0)->orderBy('Order', 'asc')->get();
+      //return view('classes.create', [
+      //  'seasons' => $seasons
+      //]);
     }
 
     /**
