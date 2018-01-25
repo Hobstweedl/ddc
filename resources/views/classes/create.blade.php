@@ -34,19 +34,19 @@
 			<div class="field" v-if="form.weeklySeason">
 				<label class="label">Days of the Week</label>
 				<div class="control" >
-					<input class="is-checkradio" type="checkbox" name="mondayCheckBox" id="mondayCheckBox" value="Mo" v.model="form.monday">
+					<input class="is-checkradio" type="checkbox" name="mondayCheckBox" id="mondayCheckBox" value="Mo" v-model="form.monday">
 					<label for="mondayCheckBox">Monday</label>
-					<input class="is-checkradio" type="checkbox" name="mondayCheckBox" id="tuesdayCheckBox" value="Tu" v.model="form.tuesday">
+					<input class="is-checkradio" type="checkbox" name="tuesdayCheckBox" id="tuesdayCheckBox" value="Tu" v-model="form.tuesday">
 					<label for="tuesdayCheckBox">Tuesday</label>
-					<input class="is-checkradio" type="checkbox" name="mondayCheckBox" id="wednesdayCheckBox" value="We" v.model="form.wednesday">
+					<input class="is-checkradio" type="checkbox" name="wednesdayCheckBox" id="wednesdayCheckBox" value="We" v-model="form.wednesday">
 					<label for="wednesdayCheckBox">Wednesday</label>
-					<input class="is-checkradio" type="checkbox" name="mondayCheckBox" id="thursdayCheckBox" value="Th" v.model="form.thursday">
+					<input class="is-checkradio" type="checkbox" name="thursdayCheckBox" id="thursdayCheckBox" value="Th" v-model="form.thursday">
 					<label for="thursdayCheckBox">Thursday</label>
-					<input class="is-checkradio" type="checkbox" name="mondayCheckBox" id="fridayCheckBox" value="Fr" v.model="form.friday">
+					<input class="is-checkradio" type="checkbox" name="fridayCheckBox" id="fridayCheckBox" value="Fr" v-model="form.friday">
 					<label for="fridayCheckBox">Friday</label>
-					<input class="is-checkradio" type="checkbox" name="mondayCheckBox" id="saturdayCheckBox" value="Sa" v.model="form.saturday">
+					<input class="is-checkradio" type="checkbox" name="saturdayCheckBox" id="saturdayCheckBox" value="Sa" v-model="form.saturday">
 					<label for="saturdayCheckBox">Saturday</label>
-					<input class="is-checkradio" type="checkbox" name="mondayCheckBox" id="sundayCheckBox" value="Su" v.model="form.sunday">
+					<input class="is-checkradio" type="checkbox" name="sundayCheckBox" id="sundayCheckBox" value="Su" v-model="form.sunday">
 					<label for="sundayCheckBox">Sunday</label>
 				</div>
 			</div>
@@ -130,7 +130,7 @@
 				<label class="label">Class Type</label>
 				<div class="control is-expanded">
 					<div class="select is-fullwidth">
-						<select v-model="form.class_type_id" name="class_type_id">
+						<select v-model="form.class_type_id" name="class_type_id" @change="form.errors.clear('class_type_id')">
 						@foreach ($classtypes as $classtype)
 							<option value="{{$classtype->id}}">{{$classtype->Name}}</option>
 						@endforeach
@@ -145,7 +145,7 @@
 				<label class="label">Instructor</label>
 				<div class="control is-expanded">
 					<div class="select is-fullwidth">
-						<select v-model="form.instructor_id" name="instructor_id">
+						<select v-model="form.instructor_id" name="instructor_id" @change="form.errors.clear('instructor_id')">
 						@foreach ($instructors as $instructor)
 							<option value="{{$instructor->id}}">{{$instructor->Display}}</option>
 						@endforeach
@@ -160,7 +160,7 @@
 				<label class="label">Location</label>
 				<div class="control is-expanded">
 					<div class="select is-fullwidth">
-						<select v-model="form.location_id" name="location_id">
+						<select v-model="form.location_id" name="location_id" @change="form.errors.clear('location_id')">
 						@foreach ($locations as $location)
 							<option value="{{$location->id}}">{{$location->Type}}</option>
 						@endforeach
@@ -177,7 +177,7 @@
 				<label class="label">Public Description</label>
 				<div class="control is-expanded">
 					<textarea class="textarea" rows="2" placeholder="The public description of the class" name="PublicDescription" v-model="form.PublicDescription"></textarea>
-					<span class="help is-danger" v-if="form.errors.has('class_type_id')" v-text="form.errors.get('class_type_id')"></span>
+					<span class="help is-danger" v-if="form.errors.has('PublicDescription')" v-text="form.errors.get('PublicDescription')"></span>
 				</div>
 			</div>
 		</div>
@@ -392,11 +392,11 @@
 					location_id: '',
 					AgeFrom: '',
 					AgeTo: '',
-					AgeNAFlag: '',
-					Prerequisite: '',
+					AgeNAFlag: null,
+					Prerequisite: null,
 					PrerequisiteNote: '',
-					OnlineRegistrationAllowed: '',
-					AllowIndividualDayRegistration: '',
+					OnlineRegistrationAllowed: null,
+					AllowIndividualDayRegistration: null,
 					Password: '',
 					ClassCharge: '',
 					mode: 'multiple',

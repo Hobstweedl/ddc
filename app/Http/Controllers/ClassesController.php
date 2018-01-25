@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Instructor;
 use App\ClassType;
 use App\Location;
+use App\Http\Requests\StoreClass;
 
 class ClassesController extends Controller
 {
@@ -65,11 +66,6 @@ class ClassesController extends Controller
         }
         $ampm = ['AM', 'PM'];
 
-        for ($x = 1; $x < 60; $x++) {
-
-        }
-
-
         /*  It's better to explicitly set the data being passed into the view
             If a variable that is undefined or null is passed to the compact function
             it will basically insert a null pointer into the compacted object and break
@@ -110,19 +106,28 @@ class ClassesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreClass $request)
     {
-        dd($request);
-        $validated = $request->validate([
-            'Name' => 'required',
-            'season_id' => 'required',
+        $seasonData = $request['season_id'];
+        $season_id = explode("|", $seasonData)[0];
+        $SeasonType = explode("|", $seasonData)[1];
+        if ($SeasonType == '1') {
+          $monday = $request['monday'];
+          $tuesday = $request['tuesday'];
+          $wednesday = $request['wednesday'];
+          $thursday = $request['thursday'];
+          $friday = $request['friday'];
+          $saturday = $request['saturday'];
+          $sunday = $request['sunday'];
+          
+        }
+        
 
-
-        ]);
-        $class = Classes::create($validated);
+        //$validator->
+        $class = Classes::create();
         $request->session()->flash('alert-success', 'Saved class successfully!');
         //$instructors = Instructor::all();
-        return redirect()->action('ClassesController@index');
+        //return redirect()->action('ClassesController@index');
     }
 
     /**
