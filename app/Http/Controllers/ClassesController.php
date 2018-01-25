@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Instructor;
 use App\ClassType;
+use App\Location;
 
 class ClassesController extends Controller
 {
@@ -26,6 +27,7 @@ class ClassesController extends Controller
 
         $instructors = Instructor::where('Active', 1)->get();
         $classtypes = ClassType::all();
+        $locations = Location::all();
 
         /*Get dates to display on calendar based on month passed in URL*/
         $defaultToCalendar = 0;
@@ -79,6 +81,7 @@ class ClassesController extends Controller
             'season' => $season,
             'instructors' => $instructors,
             'classtypes' => $classtypes,
+            'locations' => $locations,
             'daysOfWeek' => $daysOfWeek,
             'defaultToCalendar' => $defaultToCalendar,
             'dates' => $dates,
@@ -109,9 +112,12 @@ class ClassesController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request);
         $validated = $request->validate([
             'Name' => 'required',
-            'season_id' => 'required'
+            'season_id' => 'required',
+
+
         ]);
         $class = Classes::create($validated);
         $request->session()->flash('alert-success', 'Saved class successfully!');
