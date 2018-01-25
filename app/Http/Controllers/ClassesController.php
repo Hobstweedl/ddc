@@ -10,6 +10,8 @@ use App\Instructor;
 use App\ClassType;
 use App\Location;
 use App\Http\Requests\StoreClass;
+use DateTime;
+use Illuminate\Support\Facades\Auth;
 
 class ClassesController extends Controller
 {
@@ -111,23 +113,66 @@ class ClassesController extends Controller
         $seasonData = $request['season_id'];
         $season_id = explode("|", $seasonData)[0];
         $SeasonType = explode("|", $seasonData)[1];
+        $DayHeldOn = null;
+        $CreateClassDates = false;
         if ($SeasonType == '1') {
-          $monday = $request['monday'];
-          $tuesday = $request['tuesday'];
-          $wednesday = $request['wednesday'];
-          $thursday = $request['thursday'];
-          $friday = $request['friday'];
-          $saturday = $request['saturday'];
-          $sunday = $request['sunday'];
-          
+          $monday = $request['monday'] . "|";
+          $tuesday = $request['tuesday'] . "|";
+          $wednesday = $request['wednesday'] . "|";
+          $thursday = $request['thursday'] . "|";
+          $friday = $request['friday'] . "|";
+          $saturday = $request['saturday'] . "|";
+          $sunday = $request['sunday'] . "|";
+          $DayHeldOn = $monday . $tuesday . $wednesday . $thursday . $friday . $saturday . $sunday;
+        } else {
+          $CreateClassDates = true;
         }
-        
 
-        //$validator->
-        $class = Classes::create();
+        $StartTime = $request['selectedHour'] . ":" . $request['selectedMinute'] . " " . $request['selectedAMPM'];
+        $StartTime = DateTime::createFromFormat('H:i A', $StartTime);
+        $StartTime = $StartTime->format('H:i:s');
+
+        $Length = $request['selectedHourLength'] * 60 + $request['selectedMinuteLength'];
+        
+        $class = new Classes;
+        $class->Name = $request->Name;
+        $class->season_id = $season_id;
+        if ($SeasonType == '1') {
+          $class->DayHeldOn = $DayHeldOn;
+          $class->StartTime = $StartTime;
+          $class->Length = $Length;
+        } else {
+          $class->DayHeldOn = null;
+          $class->StartTime = null;
+          $class->Length = null;
+        }
+        $class->instructor_id = $request->instructor_id;
+        $class->classtype_id = $request->class_type_id;
+        $class->PublicDescription = $request->PublicDescription;
+        $class->PrivateNotes = $request->PrivateNotes;
+        $class->MaxSize = $request->MaxSize;
+        $class->location_id = $request->location_id;
+        $class->AgeFrom = $request->AgeFrom;
+        $class->AgeTo = $request->AgeTo;
+        $class->AgeNAFlag = $request->AgeNAFlag;
+        $class->Prerequisite = $request->Prerequisite;
+        $class->PrerequisiteNote = $request->PrerequisiteNote;
+        $class->OnlineRegistrationAllowed = $request->OnlineRegistrationAllowed;
+        $class->AllowIndividualDayRegistration = $request->AllowIndividualDayRegistration;
+        $class->Password = $request->Password;
+        $class->ClassCharge = $request->ClassCharge;
+        $class->created_by = Auth::id();
+        $class->created_at = date('Y-m-d H:i:s');
+        $class->save();
+        if ($CreateClassDates) {
+          //foreach ($request['selectedDate'] as $date) {
+           // $test = '';
+          //}
+        }
+                
         $request->session()->flash('alert-success', 'Saved class successfully!');
         //$instructors = Instructor::all();
-        //return redirect()->action('ClassesController@index');
+        return redirect()->action('ClassesController@index');
     }
 
     /**

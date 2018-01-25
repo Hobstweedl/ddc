@@ -1,5 +1,5 @@
 <div id="app">
-	<form method="POST" action="{{ route('classes.store') }}" @submit.prevent="onSubmit" @keydown="form.errors.clear($event.target.name)">
+	<form method="POST" action="{{ route('classes.store') }}"  @keydown="form.errors.clear($event.target.name)">
 	{{ csrf_field() }}
 
 	<div class="columns">
