@@ -24,7 +24,7 @@ class StoreClass extends FormRequest
     public function rules()
     {
         return [
-            'Name' => 'required|unique:classes,Name',
+            'Name' => 'required',
             'season_id' => 'required',
             'selectedHour' => 'required',
             'selectedMinute' => 'required',
@@ -32,7 +32,7 @@ class StoreClass extends FormRequest
             'selectedHourLength' => 'required',
             'selectedMinuteLength' => 'required',
             'instructor_id' => 'required|exists:instructors,id',
-            'class_type_id' => 'required|exists:class_types,id',
+            'classtype_id' => 'required|exists:class_types,id',
             'PublicDescription' => 'nullable',
             'PrivateNotes' => 'nullable',
             'MaxSize' => 'nullable|integer',
@@ -47,5 +47,34 @@ class StoreClass extends FormRequest
             'Password' => 'nullable',
             'ClassCharge' => 'nullable|numeric'
         ];
+    }
+
+    public function withValidator($validator)
+    {
+        $validator->after(
+            function ($validator) {
+                $AgeFrom = trim($this->request->get('AgeFrom'));
+                if (isset($AgeFrom) === true && $AgeFrom === '') {
+                    $AgeTo = trim($this->request->get('AgeTo'));
+                    if (isset($AgeTo) === true && $AgeTo === '') {
+                        $AgeFrom = (int)$AgeFrom;
+                        $AgeTo = (int)$AgeTo;
+                        if ($AgeTo < $AgeFrom) {
+                            $validator->errors()->add(
+                                'Age',
+                                'Maximum age must be less than or equal to minimum age.'
+                            );
+                        }
+                    } else {
+                        $validator->errors()->add(
+                            'Age',
+                            'Maximum age is required.'
+                        );
+                    }
+                } else {
+    
+                }
+            }
+        );
     }
 }

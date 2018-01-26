@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Instructor;
 use App\ClassType;
+use App\ClassDate;
 use App\Location;
 use App\Http\Requests\StoreClass;
 use DateTime;
@@ -116,26 +117,41 @@ class ClassesController extends Controller
         $DayHeldOn = null;
         $CreateClassDates = false;
         if ($SeasonType == '1') {
-          $monday = $request['monday'] . "|";
-          $tuesday = $request['tuesday'] . "|";
-          $wednesday = $request['wednesday'] . "|";
-          $thursday = $request['thursday'] . "|";
-          $friday = $request['friday'] . "|";
-          $saturday = $request['saturday'] . "|";
-          $sunday = $request['sunday'] . "|";
+          $monday = ($request['monday'] ? 1 : 0) . "|";
+          $tuesday = ($request['tuesday'] ? 1 : 0) . "|";
+          $wednesday = ($request['wednesday'] ? 1 : 0) . "|";
+          $thursday = ($request['thursday'] ? 1 : 0) . "|";
+          $friday = ($request['friday'] ? 1 : 0) . "|";
+          $saturday = ($request['saturday'] ? 1 : 0) . "|";
+          $sunday = ($request['sunday'] ? 1 : 0) . "|";
           $DayHeldOn = $monday . $tuesday . $wednesday . $thursday . $friday . $saturday . $sunday;
         } else {
           $CreateClassDates = true;
         }
+        $request->offsetUnset('monday');
+        $request->offsetUnset('tuesday');
+        $request->offsetUnset('wednesday');
+        $request->offsetUnset('thursday');
+        $request->offsetUnset('friday');
+        $request->offsetUnset('saturday');
+        $request->offsetUnset('sunday');
 
         $StartTime = $request['selectedHour'] . ":" . $request['selectedMinute'] . " " . $request['selectedAMPM'];
         $StartTime = DateTime::createFromFormat('H:i A', $StartTime);
         $StartTime = $StartTime->format('H:i:s');
+        $request->offsetUnset('selectedHour');
+        $request->offsetUnset('selectedMinute');
+        $request->offsetUnset('selectedAMPM');
 
         $Length = $request['selectedHourLength'] * 60 + $request['selectedMinuteLength'];
+        $request->offsetUnset('selectedHourLength');
+        $request->offsetUnset('selectedMinuteLength');
         
+        $selectedDates = explode(",", $request['selectedDates']);
+        $request->offsetUnset('selectedDates');
+
         $class = new Classes;
-        $class->Name = $request->Name;
+        $class->fill($request->all());
         $class->season_id = $season_id;
         if ($SeasonType == '1') {
           $class->DayHeldOn = $DayHeldOn;
@@ -146,33 +162,21 @@ class ClassesController extends Controller
           $class->StartTime = null;
           $class->Length = null;
         }
-        $class->instructor_id = $request->instructor_id;
-        $class->classtype_id = $request->class_type_id;
-        $class->PublicDescription = $request->PublicDescription;
-        $class->PrivateNotes = $request->PrivateNotes;
-        $class->MaxSize = $request->MaxSize;
-        $class->location_id = $request->location_id;
-        $class->AgeFrom = $request->AgeFrom;
-        $class->AgeTo = $request->AgeTo;
-        $class->AgeNAFlag = $request->AgeNAFlag;
-        $class->Prerequisite = $request->Prerequisite;
-        $class->PrerequisiteNote = $request->PrerequisiteNote;
-        $class->OnlineRegistrationAllowed = $request->OnlineRegistrationAllowed;
-        $class->AllowIndividualDayRegistration = $request->AllowIndividualDayRegistration;
-        $class->Password = $request->Password;
-        $class->ClassCharge = $request->ClassCharge;
         $class->created_by = Auth::id();
         $class->created_at = date('Y-m-d H:i:s');
         $class->save();
         if ($CreateClassDates) {
-          //foreach ($request['selectedDate'] as $date) {
-           // $test = '';
-          //}
+          foreach ($selectedDates as $date) {
+            $classdate = new ClassDate;
+            $classdate->classes_id = $class->id;
+            $classdate->HeldOn = date('Y-m-d H:i:s', strtotime($date));
+            $classdate->save();
+          }
         }
                 
         $request->session()->flash('alert-success', 'Saved class successfully!');
         //$instructors = Instructor::all();
-        return redirect()->action('ClassesController@index');
+        return redirect()->route('classes');
     }
 
     /**

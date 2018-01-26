@@ -19,7 +19,18 @@ class SeasonsTableSeeder extends Seeder
             if ($season->SeasonType == 1) {
               $season->classes()->saveMany(factory(App\Classes::class, $howManyClasses)->make(['season_id'=>$season->id]));
             } elseif ($season->SeasonType == 2) {
-              $season->classes()->saveMany(factory(App\Classes::class, $howManyClasses)->make(['season_id'=>$season->id, 'DayHeldOn'=>null, 'StartTime'=>null, 'Length'=>null ]));
+              $season->classes()->saveMany(factory(App\Classes::class, $howManyClasses)->make(['season_id'=>$season->id]));
+            }
+
+            if ($season->SeasonType == 1) {
+                foreach ($season->classes as $class) {
+                    $howManyDays = rand(1, 3);
+                    $input = array("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday");
+                    $rand_keys = array_rand($input, $howManyDays);
+                    for ($i = 1; $i <= $howManyDays; $i++) {
+                        $class->days()->save(factory(App\ClassDay::class)->make(['classes_id' => $class->id, 'DayHeldOn' => $input[$rand_keys[i]]]));
+                    }
+                }
             }
 
             if ($season->SeasonType == 2) {

@@ -1,5 +1,5 @@
 <div id="app">
-	<form method="POST" action="{{ route('classes.store') }}"  @keydown="form.errors.clear($event.target.name)">
+	<form method="POST" action="{{ route('classes.store') }}" @submit.prevent="onSubmit" @keydown="form.errors.clear($event.target.name)">
 	{{ csrf_field() }}
 
 	<div class="columns">
@@ -34,31 +34,31 @@
 			<div class="field" v-if="form.weeklySeason">
 				<label class="label">Days of the Week</label>
 				<div class="control" >
-					<input class="is-checkradio" type="checkbox" name="mondayCheckBox" id="mondayCheckBox" value="Mo" v-model="form.monday">
-					<label for="mondayCheckBox">Monday</label>
-					<input class="is-checkradio" type="checkbox" name="tuesdayCheckBox" id="tuesdayCheckBox" value="Tu" v-model="form.tuesday">
-					<label for="tuesdayCheckBox">Tuesday</label>
-					<input class="is-checkradio" type="checkbox" name="wednesdayCheckBox" id="wednesdayCheckBox" value="We" v-model="form.wednesday">
-					<label for="wednesdayCheckBox">Wednesday</label>
-					<input class="is-checkradio" type="checkbox" name="thursdayCheckBox" id="thursdayCheckBox" value="Th" v-model="form.thursday">
-					<label for="thursdayCheckBox">Thursday</label>
-					<input class="is-checkradio" type="checkbox" name="fridayCheckBox" id="fridayCheckBox" value="Fr" v-model="form.friday">
-					<label for="fridayCheckBox">Friday</label>
-					<input class="is-checkradio" type="checkbox" name="saturdayCheckBox" id="saturdayCheckBox" value="Sa" v-model="form.saturday">
-					<label for="saturdayCheckBox">Saturday</label>
-					<input class="is-checkradio" type="checkbox" name="sundayCheckBox" id="sundayCheckBox" value="Su" v-model="form.sunday">
-					<label for="sundayCheckBox">Sunday</label>
+					<input class="is-checkradio" type="checkbox" name="monday" id="monday" v-model="form.monday">
+					<label for="monday">Monday</label>
+					<input class="is-checkradio" type="checkbox" name="tuesday" id="tuesday" v-model="form.tuesday">
+					<label for="tuesday">Tuesday</label>
+					<input class="is-checkradio" type="checkbox" name="wednesday" id="wednesday" v-model="form.wednesday">
+					<label for="wednesday">Wednesday</label>
+					<input class="is-checkradio" type="checkbox" name="thursday" id="thursday" v-model="form.thursday">
+					<label for="thursday">Thursday</label>
+					<input class="is-checkradio" type="checkbox" name="friday" id="friday" v-model="form.friday">
+					<label for="friday">Friday</label>
+					<input class="is-checkradio" type="checkbox" name="saturday" id="saturday" v-model="form.saturday">
+					<label for="saturday">Saturday</label>
+					<input class="is-checkradio" type="checkbox" name="sunday" id="sunday" v-model="form.sunday">
+					<label for="sunday">Sunday</label>
 				</div>
 			</div>
 			<div class="field" v-else-if="form.dateSpecificSeason">
 				<label class="label">Occurs On</label>
-				<div class="control is-expanded">
 					<v-date-picker :mode='form.mode' 
-						v-model='form.selectedDate' 
-						popover-visibility="focus" 
-						input-class="input">
+						v-model='form.selectedDates' 
+						popover-visibility="focus"
+						class="control"
+						style="display:block;">
+							<input slot-scope='props' :value='props.inputValue' class="input" type="text" v.model="form.selectedDates" name="selectedDates">
 					</v-date-picker>
-				</div>
 			</div>
 			<div class="field" v-else>
 				<div class="is-divider" data-content="SELECT A SEASON FIRST"></div>
@@ -130,13 +130,13 @@
 				<label class="label">Class Type</label>
 				<div class="control is-expanded">
 					<div class="select is-fullwidth">
-						<select v-model="form.class_type_id" name="class_type_id" @change="form.errors.clear('class_type_id')">
+						<select v-model="form.classtype_id" name="classtype_id" @change="form.errors.clear('classtype_id')">
 						@foreach ($classtypes as $classtype)
 							<option value="{{$classtype->id}}">{{$classtype->Name}}</option>
 						@endforeach
 						</select>
 					</div>
-					<span class="help is-danger" v-if="form.errors.has('class_type_id')" v-text="form.errors.get('class_type_id')"></span>
+					<span class="help is-danger" v-if="form.errors.has('classtype_id')" v-text="form.errors.get('classtype_id')"></span>
 				</div>
 			</div>
 		</div>
@@ -216,11 +216,11 @@
 				<label class="label">Age Range</label>
 				<div class="field-body">
 					<div class="field">
-						<input class="input" type="text" placeholder="Min" v-model="form.AgeFrom" name="AgeFrom" style="display:inline-block;">
+						<input class="input" type="text" placeholder="Min" v-model="form.AgeFrom" name="AgeFrom" style="display:inline-block;" :disabled="form.AgeNAFlag">
 					</div>
 					<p class="is-size-6" style="display:inline-block;"> to&nbsp; </p>
 					<div class="field">
-						<input class="input" type="text" placeholder="Max" v-model="form.AgeTo" name="AgeTo" style="display:inline-block;">
+						<input class="input" type="text" placeholder="Max" v-model="form.AgeTo" name="AgeTo" style="display:inline-block;" :disabled="form.AgeNAFlag">
 					</div>
 					<span class="help is-danger" v-if="form.errors.has('Age')" v-text="form.errors.get('Age')"></span>
 				</div>
@@ -378,14 +378,14 @@
 				form: new Form({
 					Name: '',
           season_id: '',
-					selectedDate: null,
+					selectedDates: null,
 					selectedHour: null,
 					selectedMinute: null,
 					selectedAMPM: null,
 					selectedHourLength: null,
 					selectedMinuteLength: null,
 					instructor_id: '',
-					class_type_id: '',
+					classtype_id: '',
 					PublicDescription: '',
 					PrivateNotes: '',
 					MaxSize: '',

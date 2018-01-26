@@ -41,6 +41,11 @@ class Classes extends Model
 
     public function dates()
     {
-        return $this->hasMany(ClassDate::class)->orderBy('HeldOn')->orderBy('StartTime');
+        return $this->hasMany(ClassDate::class)->orderBy('HeldOn');
+    }
+
+    public function days()
+    {
+        return $this->hasMany(ClassDay::class)->orderBy('DayHeldOn');
     }
 }
