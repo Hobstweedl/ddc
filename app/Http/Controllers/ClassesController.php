@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Instructor;
 use App\ClassType;
 use App\ClassDate;
+use App\ClassDay;
 use App\Location;
 use App\Http\Requests\StoreClass;
 use DateTime;
@@ -111,20 +112,40 @@ class ClassesController extends Controller
      */
     public function store(StoreClass $request)
     {
+        $request->offsetUnset('mode');
+        $request->offsetUnset('weeklySeason');
+        $request->offsetUnset('dateSpecificSeason');
         $seasonData = $request['season_id'];
         $season_id = explode("|", $seasonData)[0];
         $SeasonType = explode("|", $seasonData)[1];
         $DayHeldOn = null;
         $CreateClassDates = false;
+        $CreateClassDays = false;
+        $DaysArray = array();
+
         if ($SeasonType == '1') {
-          $monday = ($request['monday'] ? 1 : 0) . "|";
-          $tuesday = ($request['tuesday'] ? 1 : 0) . "|";
-          $wednesday = ($request['wednesday'] ? 1 : 0) . "|";
-          $thursday = ($request['thursday'] ? 1 : 0) . "|";
-          $friday = ($request['friday'] ? 1 : 0) . "|";
-          $saturday = ($request['saturday'] ? 1 : 0) . "|";
-          $sunday = ($request['sunday'] ? 1 : 0) . "|";
-          $DayHeldOn = $monday . $tuesday . $wednesday . $thursday . $friday . $saturday . $sunday;
+          if ($request['monday']) {
+            $DaysArray[] = 'Monday';
+          }
+          if ($request['tuesday']) {
+            $DaysArray[] = 'Tuesday';
+          }
+          if ($request['wednesday']) {
+            $DaysArray[] = 'Wednesday';
+          }
+          if ($request['thursday']) {
+            $DaysArray[] = 'Thursday';
+          }
+          if ($request['friday']) {
+            $DaysArray[] = 'Friday';
+          }
+          if ($request['saturday']) {
+            $DaysArray[] = 'Saturday';
+          }
+          if ($request['sunday']) {
+            $DaysArray[] = 'Sunday';
+          }
+          $CreateClassDays = true;
         } else {
           $CreateClassDates = true;
         }
@@ -135,6 +156,7 @@ class ClassesController extends Controller
         $request->offsetUnset('friday');
         $request->offsetUnset('saturday');
         $request->offsetUnset('sunday');
+        $request->offsetUnset('DayHeldOn');
 
         $StartTime = $request['selectedHour'] . ":" . $request['selectedMinute'] . " " . $request['selectedAMPM'];
         $StartTime = DateTime::createFromFormat('H:i A', $StartTime);
@@ -154,11 +176,9 @@ class ClassesController extends Controller
         $class->fill($request->all());
         $class->season_id = $season_id;
         if ($SeasonType == '1') {
-          $class->DayHeldOn = $DayHeldOn;
           $class->StartTime = $StartTime;
           $class->Length = $Length;
         } else {
-          $class->DayHeldOn = null;
           $class->StartTime = null;
           $class->Length = null;
         }
@@ -171,6 +191,15 @@ class ClassesController extends Controller
             $classdate->classes_id = $class->id;
             $classdate->HeldOn = date('Y-m-d H:i:s', strtotime($date));
             $classdate->save();
+          }
+        }
+
+        if ($CreateClassDays) {
+          foreach ($DaysArray as $day) {
+            $classday = new ClassDay;
+            $classday->classes_id = $class->id;
+            $classday->DayHeldOn = $day;
+            $classday->save();
           }
         }
                 

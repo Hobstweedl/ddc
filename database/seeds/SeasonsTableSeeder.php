@@ -27,9 +27,14 @@ class SeasonsTableSeeder extends Seeder
                     $howManyDays = rand(1, 3);
                     $input = array("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday");
                     $rand_keys = array_rand($input, $howManyDays);
-                    for ($i = 1; $i <= $howManyDays; $i++) {
-                        $class->days()->save(factory(App\ClassDay::class)->make(['classes_id' => $class->id, 'DayHeldOn' => $input[$rand_keys[i]]]));
+                    if (is_array($rand_keys)) {
+                        for ($i = 0; $i < $howManyDays; $i++) {
+                            $class->days()->save(factory(App\ClassDay::class)->make(['classes_id' => $class->id, 'DayHeldOn' => $input[$rand_keys[$i]]]));
+                        }
+                    } else {
+                        $class->days()->save(factory(App\ClassDay::class)->make(['classes_id' => $class->id, 'DayHeldOn' => $input[$rand_keys]]));
                     }
+                    
                 }
             }
 

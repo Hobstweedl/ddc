@@ -100,6 +100,10 @@ $factory->define(App\ClassDate::class, function ($faker) {
    ];
 });
 
+$factory->define(App\ClassDay::class, function ($faker) {
+    return [];
+});
+
 $factory->define(App\Family::class, function ($faker) {
     return [
         'First' => $faker->firstName,
