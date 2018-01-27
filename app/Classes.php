@@ -7,6 +7,8 @@ use \Carbon\Carbon;
 
 class Classes extends Model
 {
+    protected $guarded = [];
+    
 	public function season()
 	{
 		return $this->belongsTo(Season::class);
@@ -39,6 +41,11 @@ class Classes extends Model
 
     public function dates()
     {
-        return $this->hasMany(ClassDate::class)->orderBy('HeldOn')->orderBy('StartTime');
+        return $this->hasMany(ClassDate::class)->orderBy('HeldOn');
+    }
+
+    public function days()
+    {
+        return $this->hasMany(ClassDay::class)->orderBy('DayHeldOn');
     }
 }

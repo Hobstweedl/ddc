@@ -17,8 +17,6 @@ class CreateClassDatesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('classes_id');
             $table->dateTime('HeldOn')->nullable();
-            $table->time('StartTime')->nullable();
-            $table->integer('Length')->nullable();
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->timestamps();

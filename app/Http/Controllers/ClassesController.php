@@ -6,6 +6,14 @@ use App\Classes;
 use App\Season;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Instructor;
+use App\ClassType;
+use App\ClassDate;
+use App\ClassDay;
+use App\Location;
+use App\Http\Requests\StoreClass;
+use DateTime;
+use Illuminate\Support\Facades\Auth;
 
 class ClassesController extends Controller
 {
@@ -21,6 +29,10 @@ class ClassesController extends Controller
         } else {
             $classes = Classes::all();
         }
+
+        $instructors = Instructor::where('Active', 1)->get();
+        $classtypes = ClassType::all();
+        $locations = Location::all();
 
         /*Get dates to display on calendar based on month passed in URL*/
         $defaultToCalendar = 0;
@@ -44,6 +56,19 @@ class ClassesController extends Controller
 
         $seasons = Season::where('Archived', 0)->orderBy('Order', 'asc')->get();
         $daysOfWeek = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+        $hours = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+        $lengthHours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+        $minutes = [];
+        for ($minute = 0; $minute < 60; $minute++) {
+          if (preg_match('/^\d{2}$/', $minute)) {
+            $temp = (string)$minute;
+          } else {
+            $temp = '0' . (string)$minute;
+          }
+          $lengthMinutes[] = $minute;
+          $minutes[] = $temp;
+        }
+        $ampm = ['AM', 'PM'];
 
         /*  It's better to explicitly set the data being passed into the view
             If a variable that is undefined or null is passed to the compact function
@@ -54,10 +79,18 @@ class ClassesController extends Controller
             'classes' => $classes,
             'seasons' => $seasons,
             'season' => $season,
+            'instructors' => $instructors,
+            'classtypes' => $classtypes,
+            'locations' => $locations,
             'daysOfWeek' => $daysOfWeek,
             'defaultToCalendar' => $defaultToCalendar,
             'dates' => $dates,
-            'monthToShow' => $monthToShow
+            'monthToShow' => $monthToShow,
+            'hours' => $hours,
+            'minutes' => $minutes,
+            'ampm' => $ampm,
+            'lengthHours' => $lengthHours,
+            'lengthMinutes' => $lengthMinutes
         ]);
     }
 
@@ -68,7 +101,10 @@ class ClassesController extends Controller
      */
     public function create()
     {
-        return view('classes.create');
+      //$seasons = Season::where('Archived', 0)->orderBy('Order', 'asc')->get();
+      //return view('classes.create', [
+      //  'seasons' => $seasons
+      //]);
     }
 
     /**
@@ -77,9 +113,102 @@ class ClassesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreClass $request)
     {
-        //
+        $request->offsetUnset('mode');
+        $request->offsetUnset('weeklySeason');
+        $request->offsetUnset('dateSpecificSeason');
+        $seasonData = $request['season_id'];
+        $season_id = explode("|", $seasonData)[0];
+        $SeasonType = explode("|", $seasonData)[1];
+        $DayHeldOn = null;
+        $CreateClassDates = false;
+        $CreateClassDays = false;
+        $DaysArray = array();
+
+        if ($SeasonType == '1') {
+          if ($request['monday']) {
+            $DaysArray[] = 'Monday';
+          }
+          if ($request['tuesday']) {
+            $DaysArray[] = 'Tuesday';
+          }
+          if ($request['wednesday']) {
+            $DaysArray[] = 'Wednesday';
+          }
+          if ($request['thursday']) {
+            $DaysArray[] = 'Thursday';
+          }
+          if ($request['friday']) {
+            $DaysArray[] = 'Friday';
+          }
+          if ($request['saturday']) {
+            $DaysArray[] = 'Saturday';
+          }
+          if ($request['sunday']) {
+            $DaysArray[] = 'Sunday';
+          }
+          $CreateClassDays = true;
+        } else {
+          $CreateClassDates = true;
+        }
+        $request->offsetUnset('monday');
+        $request->offsetUnset('tuesday');
+        $request->offsetUnset('wednesday');
+        $request->offsetUnset('thursday');
+        $request->offsetUnset('friday');
+        $request->offsetUnset('saturday');
+        $request->offsetUnset('sunday');
+        $request->offsetUnset('DayHeldOn');
+
+        $StartTime = $request['selectedHour'] . ":" . $request['selectedMinute'] . " " . $request['selectedAMPM'];
+        $StartTime = DateTime::createFromFormat('H:i A', $StartTime);
+        $StartTime = $StartTime->format('H:i:s');
+        $request->offsetUnset('selectedHour');
+        $request->offsetUnset('selectedMinute');
+        $request->offsetUnset('selectedAMPM');
+
+        $Length = $request['selectedHourLength'] * 60 + $request['selectedMinuteLength'];
+        $request->offsetUnset('selectedHourLength');
+        $request->offsetUnset('selectedMinuteLength');
+        
+        $selectedDates = explode(",", $request['selectedDates']);
+        $request->offsetUnset('selectedDates');
+
+        $class = new Classes;
+        $class->fill($request->all());
+        $class->season_id = $season_id;
+        if ($SeasonType == '1') {
+          $class->StartTime = $StartTime;
+          $class->Length = $Length;
+        } else {
+          $class->StartTime = null;
+          $class->Length = null;
+        }
+        $class->created_by = Auth::id();
+        $class->created_at = date('Y-m-d H:i:s');
+        $class->save();
+        if ($CreateClassDates) {
+          foreach ($selectedDates as $date) {
+            $classdate = new ClassDate;
+            $classdate->classes_id = $class->id;
+            $classdate->HeldOn = date('Y-m-d H:i:s', strtotime($date));
+            $classdate->save();
+          }
+        }
+
+        if ($CreateClassDays) {
+          foreach ($DaysArray as $day) {
+            $classday = new ClassDay;
+            $classday->classes_id = $class->id;
+            $classday->DayHeldOn = $day;
+            $classday->save();
+          }
+        }
+                
+        $request->session()->flash('alert-success', 'Saved class successfully!');
+        //$instructors = Instructor::all();
+        return redirect()->route('classes');
     }
 
     /**

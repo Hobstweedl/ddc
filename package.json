@@ -8,14 +8,14 @@
         "production": "node node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
-        "axios": "^0.16.2",
+        "axios": "^0.17",
         "bulma": "^0.6.1",
-        "bulma-extensions": "^0.5.9",
-        "cross-env": "^5.0.1",
-        "jquery": "^3.1.1",
+        "bulma-extensions": "^0.7.1",
+        "cross-env": "^5.1",
+        "jquery": "^3.2",
         "laravel-mix": "^1.0",
         "lodash": "^4.17.4",
-        "vue": "^2.1.10"
+        "vue": "^2.5.7"
     },
     "dependencies": {
         "bulmaswatch": "^0.5.2",

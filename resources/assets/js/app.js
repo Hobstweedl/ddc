@@ -17,9 +17,14 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/Example.vue'));
 
-const app = new Vue({
+/**const app = new Vue({
     el: '#app'
-});
+});*/
 
 
 require('./bulma-extensions');
+
+
+import VCalendar from 'v-calendar';
+import 'v-calendar/lib/v-calendar.min.css';
+Vue.use(VCalendar);

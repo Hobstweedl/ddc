@@ -13,7 +13,7 @@
     $instructor = new App\Instructor;
   @endphp
   <h5 class="title is-5"><i class="fa fa-user-circle" aria-hidden="true"></i> Add New Instructor</h5>
-  <form method="POST" action="{{ route('instructors.create') }}">
+  <form method="POST" action="{{ route('instructors.store') }}">
 @endif
 
   {{ csrf_field() }}
@@ -32,6 +32,20 @@
       <div class="field">
         <div class="control is-expanded">
           <input class="input" type="text" name="Last" placeholder="Last Name" value="{{$instructor->Last}}"
+                 required/>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="field is-horizontal">
+    <div class="field-label is-normal">
+      <label class="label">Display</label>
+    </div>
+    <div class="field-body">
+      <div class="field">
+        <div class="control is-expanded">
+          <input class="input" type="text" name="Display" placeholder="Display Name" value="{{$instructor->Display}}"
                  required/>
         </div>
       </div>

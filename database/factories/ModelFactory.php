@@ -52,7 +52,6 @@ $factory->define(App\Instructor::class, function ($faker) {
 });
 
 $factory->define(App\Classes::class, function ($faker) {
-    $dayHeldOn = $faker->dayOfWeek();
     $typeOfClass = App\ClassType::inRandomOrder()->first();
     $typeOfClassID = $typeOfClass->id;
     $minute = $faker->optional(0.5, '00')->randomElement($array = array('15', '30', '45'));
@@ -69,7 +68,6 @@ $factory->define(App\Classes::class, function ($faker) {
     return [
         'Name' => $name,
         'season_id' => App\Season::inRandomOrder()->first(),
-        'DayHeldOn' => $dayHeldOn,
         'StartTime' => $databaseTime,
         'Length' => $faker->optional(0.2, '60')->randomElement($array = array('30' ,'45', '60', '90', '120')),
         'instructor_id' => App\Instructor::inRandomOrder()->first(),
@@ -98,9 +96,12 @@ $factory->define(App\ClassDate::class, function ($faker) {
     $timeOfClass = $hour . ':' . $minute . $amORpm;
     $databaseTime = \Carbon\Carbon::parse($timeOfClass);
     return [
-        'StartTime' => $databaseTime,
-        'Length' => $faker->optional(0.2, '60')->randomElement($array = array('30' ,'45', '60', '90', '120'))
+
    ];
+});
+
+$factory->define(App\ClassDay::class, function ($faker) {
+    return [];
 });
 
 $factory->define(App\Family::class, function ($faker) {
