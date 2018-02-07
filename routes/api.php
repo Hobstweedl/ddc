@@ -19,10 +19,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 //Get active instructors sorted by last name
 Route::get('/instructors', function() {
-    return App\Instructor::where('Active', '1')->orderBy('Last')->get();
+    $instructors = App\Instructor::where('Active', '1')->orderBy('Last')->get();
+    return Response::json($instructors);
 });
 
 //Get single instructor
-Route::get('/instructors/{instructor}', function ($instructor) {
-    return App\Instructor::where('id', $instructor)->get();
+Route::get('/instructors/{id}', function ($id) {
+    $instructor = App\Instructor::where('id', $id)->get();
+    return Response::json($instructor);
+    //
 });
