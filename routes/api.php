@@ -16,3 +16,8 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+  //Get active instructors sorted by last name
+Route::get('instructors', function() {
+    return App\Instructor::where('Active', '1')->orderBy('Last')->get();
+});
