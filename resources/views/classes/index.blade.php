@@ -26,8 +26,9 @@
 						<div class="column">
 							<p class="menu-label">{{$day}}</p>
 						@foreach ($classes as $class)
-							@if ($class->DayHeldOn == $day)
-								<p class="is-size-6 is-paddingless is-marginless">
+							@foreach ($class->days as $classday)
+								@if ($classday->DayHeldOn == $day)
+									<p class="is-size-6 is-paddingless is-marginless">
 									<a href="{{ route('classes.show', $class->id) }}">{{ $class->Name}}</a>
 								</p>
 								<p class="is-size-7 is-paddingless is-marginless">
@@ -41,7 +42,8 @@
 										<i class="fa fa-user" aria-hidden="true"></i> Ages {{$class->AgeFrom}} to {{$class->AgeTo}}</span>
 								</p>
 								<hr/>
-							@endif
+								@endif
+							@endforeach
 						@endforeach
 						</div>
 					@endforeach
