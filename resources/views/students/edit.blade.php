@@ -2,7 +2,7 @@
   <i class="fa fa-user" aria-hidden="true"></i>
   {{$student->First . " " . $student->Last}}
 </h5>
-<form method="POST" action="{{ route('students.update', '$student') }}">
+<form method="POST" action="{{ route('students.update', '$student->id') }}">
 
   {{csrf_field()}}
   <div class="field is-horizontal">

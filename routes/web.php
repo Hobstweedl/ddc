@@ -14,6 +14,10 @@ Route::middleware(['auth'])->group(function () {
     'as' => 'families',
     'uses' => 'FamiliesController@index'
   ]);
+  Route::get('/families/{family}', [
+    'as' => 'families.edit',
+    'uses' => 'FamiliesController@edit'
+  ]);
 
   //Student routes
   Route::get('/students', [
