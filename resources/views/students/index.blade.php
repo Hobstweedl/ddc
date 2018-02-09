@@ -6,7 +6,9 @@
     @include('students.list')
   </div>
   <div class="column is-four-fifths">
-    <div class="columns">
+    <div class="container">
+    <div class="columns is-multiline">
+      
       @if (isset($student))
       <div class="column is-half">
         <div class="box">
@@ -47,15 +49,41 @@
         </div>
       </div>
       @endif
-    </div>
+    
     @if (isset($student))
-    <div class="box">
-      <h5 class="title is-5">
-        <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
-        Enrollments
-      </h5>
+    <div class="column">
+      <div class="box">
+        <h5 class="title is-5">
+          <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+          Enrollments
+        </h5>
+        <table class="table">
+          <thead>
+            <th>Class Name</th>
+            <th>Days Enrolled</th>
+            <th>Enrollment Added</th>
+          </thead>
+          @foreach($student->enrollments as $enrollment)
+          <tr>
+            <td><a href="{{ route('classes.show', $enrollment->class->id) }}">{{$enrollment->class->Name}}</a></td>
+            <td>
+              @if (isset($enrollment->class_dates_id))
+                {{$enrollment->friendlyDate($enrollment->date->HeldOn)}}
+              @endif
+              @foreach($enrollment->class->days as $classday)
+                {{$classday->DayHeldOn}}
+              @endforeach
+            </td>
+            <td>{{$enrollment->friendlyDate($enrollment->EnrolledOn)}}</td>  
+          </tr>
+          @endforeach
+        </table>
+        
+      </div>
     </div>
     @endif
+    </div>
+    </div>
   </div>
 </div>
 @endsection
