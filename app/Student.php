@@ -29,6 +29,11 @@ class Student extends Model
         }
     }
 
+    public function name()
+    {
+        return $this->First . ' ' . $this->Last;
+    }
+
     public static function getActive()
     {
         return Student::where('Active', 1)->orderBy('Last', 'asc')->orderBy('First', 'asc')->get();

@@ -156,6 +156,7 @@ $factory->define(App\Enrollment::class, function($faker) {
     'class_dates_id' => $classdate->id,
     'Dropped' => $dropped,
     'EnrolledOn' => $enrolledOn,
+    'StartChargingOn' => $enrolledOn,
     'DroppedOn' => $droppedOn,
     'Active' => $faker->optional(0.2, 1)->numberBetween($min = 0, $max = 1)
   ];

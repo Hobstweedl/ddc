@@ -36,10 +36,28 @@ Route::middleware(['auth'])->group(function () {
       'as' => 'students.store',
       'uses' => 'StudentsController@store'
   ]);
-    Route::post('/students/{student}', [
-        'as' => 'students.update',
-        'uses' => 'StudentsController@update'
-    ]);
+  Route::post('/students/{student}', [
+      'as' => 'students.update',
+      'uses' => 'StudentsController@update'
+  ]);
+
+  //Enrollment routes
+  Route::get('/enrollments/{enrollment}', [
+    'as' => 'enrollments.edit',
+    'uses' => 'EnrollmentsController@edit'
+  ]);
+  Route::post('/enrollments/{enrollment}/delete', [
+    'as' => 'enrollments.delete',
+    'uses' => 'EnrollmentsController@destroy'
+  ]);
+  Route::post('/enrollments/{enrollment}', [
+    'as' => 'enrollments.update',
+    'uses' => 'EnrollmentsController@update'
+  ]);
+  Route::post('/enrollments/{enrollment}/switch', [
+    'as' => 'enrollments.switch',
+    'uses' => 'EnrollmentsController@update'
+  ]);
 
   //Class routes
   Route::get('/classes', [

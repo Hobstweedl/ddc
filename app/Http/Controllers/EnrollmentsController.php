@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Enrollment;
+use App\Student;
+use App\Family;
 use Illuminate\Http\Request;
+use DateTime;
 
-class EnrollmentController extends Controller
+class EnrollmentsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -57,7 +60,15 @@ class EnrollmentController extends Controller
      */
     public function edit(Enrollment $enrollment)
     {
-        //
+    $students = Student::getActive();
+    $families = Family::getActive();
+    $inactiveStudents = Student::getInactive();
+      return view('enrollments.edit', [
+        'enrollment' => $enrollment,
+        'students' => $students,
+        'families' => $families,
+        'inactiveStudents' => $inactiveStudents
+      ]);        
     }
 
     /**

@@ -15,8 +15,17 @@ class Enrollment extends Model
         return $this->belongsTo(ClassDate::class, 'class_dates_id');
     }
 
+    public function student() {
+        return $this->belongsTo(Student::class, 'student_id');
+    }
+
     public function friendlyDate($date)
     {
-        return (Carbon::parse($date)->format('D\, M\. jS Y'));
+        if (isset($date)) {
+            return (Carbon::parse($date)->format('D\, M\. jS Y'));
+        } else {
+            return null;
+        }
+        
     }
 }
