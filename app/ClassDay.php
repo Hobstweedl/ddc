@@ -9,9 +9,14 @@ class ClassDay extends Model
 {
     protected $table = 'class_days';
 
-    public function classes()
+    public function class()
     {
-        return $this->belongsToMany(Classes::class, 'id');
+        return $this->belongsTo(Classes::class, 'classes_id');
+    }
+
+    public function enrollments()
+    {
+        return $this->morphMany('App\Enrollment', 'enrollable');
     }
 
 }

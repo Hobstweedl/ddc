@@ -7,6 +7,7 @@ use App\Student;
 use App\Family;
 use Illuminate\Http\Request;
 use DateTime;
+use Illuminate\Support\Facades\DB;
 
 class EnrollmentsController extends Controller
 {
@@ -63,11 +64,27 @@ class EnrollmentsController extends Controller
     $students = Student::getActive();
     $families = Family::getActive();
     $inactiveStudents = Student::getInactive();
-      return view('enrollments.edit', [
+    $daysEnrolledInClass = DB::table('class_days')
+      ->join('enrollments', 'class_days.id', '=', 'enrollments.enrollable_id')
+      ->where([
+        ['enrollments.enrollable_type', '=', 'App\ClassDay'],
+        ['enrollments.student_id', '=', $enrollment->student_id],
+        ['class_days.classes_id', '=', $enrollment->enrollable->classes_id],
+      ])->get();
+    $datesEnrolledInClass = DB::table('class_dates')
+      ->join('enrollments', 'class_dates.id', '=', 'enrollments.enrollable_id')
+      ->where([
+        ['enrollments.enrollable_type', '=', 'App\ClassDate'],
+        ['enrollments.student_id', '=', $enrollment->student_id],
+        ['class_dates.classes_id', '=', $enrollment->enrollable->classes_id],
+      ])->get();
+    return view('enrollments.edit', [
         'enrollment' => $enrollment,
         'students' => $students,
         'families' => $families,
-        'inactiveStudents' => $inactiveStudents
+        'inactiveStudents' => $inactiveStudents,
+        'datesEnrolledInClass' => $datesEnrolledInClass,
+        'daysEnrolledInClass' => $daysEnrolledInClass
       ]);        
     }
 

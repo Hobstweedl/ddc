@@ -15,12 +15,12 @@ class CreateEnrollmentsTable extends Migration
     {
         Schema::create('enrollments', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('student_id');
-            $table->integer('classes_id');
-            $table->integer('class_dates_id')->nullable();
-            $table->integer('Dropped')->nullable();
+            $table->unsignedInteger('student_id');
+            $table->unsignedInteger('enrollable_id');
+            $table->string('enrollable_type');
             $table->dateTime('EnrolledOn')->nullable();
             $table->dateTime('StartChargingOn')->nullable();
+            $table->integer('Dropped')->nullable();
             $table->dateTime('DroppedOn')->nullable();
             $table->integer('Active')->nullable();
             $table->integer('created_by')->nullable();

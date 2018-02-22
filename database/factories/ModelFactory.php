@@ -137,9 +137,16 @@ $factory->define(App\Student::class, function($faker) {
 $factory->define(App\Enrollment::class, function($faker) {
   $class = App\Classes::inRandomOrder()->first();
   $season = $class->season()->first();
-  $classdate = new App\ClassDate;
+  $enrollable_id = '';
+  $enrollable_type = '';
   if ($season->SeasonType == 2) {
     $classdate = App\ClassDate::where('classes_id', $class->id)->inRandomOrder()->first();
+    $enrollable_id = $classdate->id;
+    $enrollable_type = 'App\ClassDate';
+  } elseif ($season->SeasonType == 1) {
+    $classday = App\ClassDay::where('classes_id', $class->id)->inRandomOrder()->first();
+    $enrollable_id = $classday->id;
+    $enrollable_type = 'App\ClassDay';
   }
 
   $dropped = $faker->optional(0.2, 0)->numberBetween(0, 1);
@@ -152,11 +159,11 @@ $factory->define(App\Enrollment::class, function($faker) {
     $enrolledOn = $faker->dateTimeInInterval($droppedOn, '-1 year')->format('Y-m-d');
   }
   return [
-    'classes_id' => $class->id,
-    'class_dates_id' => $classdate->id,
-    'Dropped' => $dropped,
+    'enrollable_id' => $enrollable_id,
+    'enrollable_type' => $enrollable_type,
     'EnrolledOn' => $enrolledOn,
     'StartChargingOn' => $enrolledOn,
+    'Dropped' => $dropped,
     'DroppedOn' => $droppedOn,
     'Active' => $faker->optional(0.2, 1)->numberBetween($min = 0, $max = 1)
   ];

@@ -26,7 +26,12 @@ class ClassDate extends Model
 
     public function enrollments()
     {
-        return $this->hasMany(Enrollment::class, 'class_dates_id')->orderBy('HeldOn')->orderBy('StartTime');
+        return $this->morphMany('App\Enrollment', 'enrollable');
+    }
+
+    public function class()
+    {
+        return $this->belongsTo(Classes::class, 'classes_id');
     }
 
 }
