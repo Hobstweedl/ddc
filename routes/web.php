@@ -46,7 +46,7 @@ Route::middleware(['auth'])->group(function () {
     'as' => 'enrollments.edit',
     'uses' => 'EnrollmentsController@edit'
   ]);
-  Route::post('/enrollments/{enrollment}/delete', [
+  Route::get('/enrollments/{enrollment}/delete', [
     'as' => 'enrollments.delete',
     'uses' => 'EnrollmentsController@destroy'
   ]);

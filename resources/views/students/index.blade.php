@@ -72,10 +72,14 @@
             <td><a href="{{ route('classes.show', $enrollment->enrollable->class->id) }}">{{$enrollment->enrollable->class->Name}}</a></td>
             <td>
               @if ($enrollment->enrollable_type == 'App\ClassDate')
-                {{$enrollment->friendlyDate($enrollment->enrollable->HeldOn)}}
+                @foreach($enrollment->otherEnrollmentsInClass($enrollment) as $otherenrollment)
+                  {{$enrollment->friendlyDate($otherenrollment->HeldOn)}}
+                @endforeach
               @endif
               @if ($enrollment->enrollable_type == 'App\ClassDay')
-                {{$enrollment->enrollable->HeldOn}}
+                @foreach($enrollment->otherEnrollmentsInClass($enrollment) as $otherenrollment)
+                  {{$otherenrollment->HeldOn}}
+                @endforeach
               @endif
 
             </td>

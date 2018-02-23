@@ -8,6 +8,7 @@ use App\Family;
 use Illuminate\Http\Request;
 use DateTime;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class EnrollmentsController extends Controller
 {
@@ -97,7 +98,15 @@ class EnrollmentsController extends Controller
      */
     public function update(Request $request, Enrollment $enrollment)
     {
-        //
+      $validated = $request->validate([
+        'EnrolledOn' => 'required',
+        'StartChargingOn' => 'required'
+      ]);
+      $enrollment['EnrolledOn'] = Carbon::parse($validated['EnrolledOn']);
+      $enrollment['StartChargingOn'] = Carbon::parse($validated['StartChargingOn']);
+      $enrollment->save();
+      $request->session()->flash('alert-success', 'Enrollment saved successfully!');
+      return redirect()->route('students.edit', $enrollment->student_id);
     }
 
     /**
@@ -108,6 +117,10 @@ class EnrollmentsController extends Controller
      */
     public function destroy(Enrollment $enrollment)
     {
-        //
+        $enrollment['Dropped'] = 1;
+        $enrollment['DroppedOn'] = Carbon::now();
+        $enrollment->save();
+        $request->session()->flash('alert-success', 'Dropped enrollment successfully!');
+        return redirect()->route('students.edit', $enrollment->student_id);
     }
 }
