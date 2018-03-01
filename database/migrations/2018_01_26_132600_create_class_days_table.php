@@ -16,7 +16,7 @@ class CreateClassDaysTable extends Migration
     Schema::create('class_days', function (Blueprint $table) {
       $table->increments('id');
       $table->unsignedInteger('classes_id');
-      $table->string('DayHeldOn', 100)->nullable();
+      $table->string('HeldOn')->nullable();
       $table->integer('created_by')->nullable();
       $table->integer('updated_by')->nullable();
       $table->timestamps();

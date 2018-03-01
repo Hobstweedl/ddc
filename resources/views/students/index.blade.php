@@ -61,23 +61,39 @@
           <thead>
             <th>Class Name</th>
             <th>Days Enrolled</th>
-            <th>Enrollment Added</th>
+            <th>Enrollment On</th>
+            <th>Start Charging On</th>
+            <th>Dropped?</th>
+            <th>Dropped On</th>
+            <th></th>
           </thead>
           @foreach($student->enrollments as $enrollment)
           <tr>
-            <td><a href="{{ route('classes.show', $enrollment->class->id) }}">{{$enrollment->class->Name}}</a></td>
+            <td><a href="{{ route('classes.show', $enrollment->enrollable->class->id) }}">{{$enrollment->enrollable->class->Name}}</a></td>
             <td>
-              @if (isset($enrollment->class_dates_id))
-                {{$enrollment->friendlyDate($enrollment->date->HeldOn)}}
+              @if ($enrollment->enrollable_type == 'App\ClassDate')
+                {{$enrollment->friendlyDate($enrollment->enrollable->HeldOn)}}
               @endif
-              @foreach($enrollment->class->days as $classday)
-                {{$classday->DayHeldOn}}
-              @endforeach
+              @if ($enrollment->enrollable_type == 'App\ClassDay')
+                {{$enrollment->enrollable->HeldOn}}
+              @endif
+
             </td>
-            <td>{{$enrollment->friendlyDate($enrollment->EnrolledOn)}}</td>  
+            <td>{{$enrollment->friendlyDate($enrollment->EnrolledOn)}}</td>
+            <td>{{$enrollment->friendlyDate($enrollment->StartChargingOn)}}</td>
+            <td>{{$enrollment->Dropped}}</td>
+            <td>{{$enrollment->friendlyDate($enrollment->DroppedOn)}}</td>
+            <td>
+              <a class="button is-primary" href="{{ route('enrollments.edit', $enrollment->id) }}">Edit</a>
+              <a class="button is-primary" href="{{ route('enrollments.delete', $enrollment->id) }}">Drop</a>
+              <a class="button is-primary" href="{{ route('enrollments.switch', $enrollment->id) }}">Switch</a>
+            </td>
           </tr>
           @endforeach
         </table>
+        <div class="control">
+            <a class="button is-primary" href="#">Add Enrollment</a>
+          </div>
         
       </div>
     </div>

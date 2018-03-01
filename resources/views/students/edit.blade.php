@@ -33,8 +33,8 @@
           <div class="select">
             <select name="Sex">
               <option>Choose a gender</option>
-              <option @if ($student->gender() == 1) selected @endif value="1">Female</option>
-              <option @if ($student->gender() == 2) selected @endif value="2">Male</option>
+              <option @if ($student->gender() == 'F') selected @endif value="1">Female</option>
+              <option @if ($student->gender() == 'M') selected @endif value="2">Male</option>
             </select>
           </div>
         </div>
